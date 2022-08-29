@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: GitHub
+  m_Title: Inspector
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 99
+  controlID: 367
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 58
+  controlID: 57
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -243,8 +243,8 @@ MonoBehaviour:
     y: 732
     width: 1466
     height: 215
-  m_MinSize: {x: 101, y: 121}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 18}
@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Window
+  m_Name: InspectorWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -271,16 +271,16 @@ MonoBehaviour:
     y: 0
     width: 454
     height: 947
-  m_MinSize: {x: 101, y: 121}
-  m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 12}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 21}
   - {fileID: 13}
   - {fileID: 22}
   - {fileID: 12}
-  m_Selected: 3
-  m_LastSelected: 2
+  m_Selected: 1
+  m_LastSelected: 0
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -309,14 +309,14 @@ MonoBehaviour:
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
     m_SaveData: []
-  progressMessageClearTime: 5961.9665803
+  progressMessageClearTime: -1
   notificationClearTime: -1
   timeSinceLastRotation: -1
   currentBranchAndRemoteHasUpdate: 0
   currentTrackingStatusHasUpdate: 0
-  currentStatusEntriesHasUpdate: 0
-  repositoryProgressHasUpdate: 0
-  appManagerProgressHasUpdate: 0
+  currentStatusEntriesHasUpdate: 1
+  repositoryProgressHasUpdate: 1
+  appManagerProgressHasUpdate: 1
   changeTab: 3
   activeTab: 3
   initProjectView:
@@ -489,8 +489,8 @@ MonoBehaviour:
       tracking: '[None]'
   changesView:
     currentBranchHasUpdate: 0
-    currentStatusEntriesHasUpdate: 0
-    currentLocksHasUpdate: 0
+    currentStatusEntriesHasUpdate: 1
+    currentLocksHasUpdate: 1
     commitBody: Improved start menu UI layout
     commitMessage: Improved start menu UI layout
     currentBranch: '[master]'
@@ -499,16 +499,9 @@ MonoBehaviour:
       assets:
         keys:
         - 00000000000000001000000000000000
-        - 7d23c24e0b1fe7a45a5aab7412ac4fda
-        - d9cc758cbe22f52489db01c86aca26ea
-        - a68df8e39f8afe14eb79dc670e1b4a79
-        - 1c4f2cafc5f069d4db09358679cc5543
-        - 2437a595db4cf5345bd77a36d959fbcd
-        - e656f843abfbec649a0e51bd47feabd6
         - 4107cdf6b12b89c468214760760c51a2
         - 512191376cd93864eb9e589759e299d4
-        - 00000000000000004000000000000000
-        - 0000000000000000a100000000000000
+        - 0000000000000000d100000000000000
         values:
         - path: Assets
           label: Assets
@@ -528,114 +521,6 @@ MonoBehaviour:
             originalPath: 
             indexStatus: 0
             workTreeStatus: 0
-        - path: Assets\Art
-          label: Art
-          level: 1
-          isFolder: 1
-          isContainer: 0
-          isCollapsed: 0
-          isHidden: 0
-          isActive: 0
-          treeIsCheckable: 1
-          checkState: 0
-          isLocked: 0
-          gitStatusEntry:
-            path: 
-            fullPath: 
-            projectPath: 
-            originalPath: 
-            indexStatus: 0
-            workTreeStatus: 0
-        - path: Assets\Art\GIJI.png
-          label: GIJI.png
-          level: 2
-          isFolder: 0
-          isContainer: 1
-          isCollapsed: 0
-          isHidden: 0
-          isActive: 0
-          treeIsCheckable: 1
-          checkState: 0
-          isLocked: 0
-          gitStatusEntry:
-            path: Assets\Art\GIJI.png
-            fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Assets\Art\GIJI.png
-            projectPath: Assets\Art\GIJI.png
-            originalPath: 
-            indexStatus: 1
-            workTreeStatus: 1
-        - path: Assets\Resources
-          label: Resources
-          level: 1
-          isFolder: 1
-          isContainer: 0
-          isCollapsed: 0
-          isHidden: 0
-          isActive: 0
-          treeIsCheckable: 1
-          checkState: 0
-          isLocked: 0
-          gitStatusEntry:
-            path: 
-            fullPath: 
-            projectPath: 
-            originalPath: 
-            indexStatus: 0
-            workTreeStatus: 0
-        - path: Assets\Resources\BillingMode.json
-          label: BillingMode.json
-          level: 2
-          isFolder: 0
-          isContainer: 1
-          isCollapsed: 0
-          isHidden: 0
-          isActive: 0
-          treeIsCheckable: 1
-          checkState: 0
-          isLocked: 0
-          gitStatusEntry:
-            path: Assets\Resources\BillingMode.json
-            fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Assets\Resources\BillingMode.json
-            projectPath: Assets\Resources\BillingMode.json
-            originalPath: 
-            indexStatus: 1
-            workTreeStatus: 1
-        - path: Assets\Scenes
-          label: Scenes
-          level: 1
-          isFolder: 1
-          isContainer: 0
-          isCollapsed: 0
-          isHidden: 0
-          isActive: 0
-          treeIsCheckable: 1
-          checkState: 0
-          isLocked: 0
-          gitStatusEntry:
-            path: 
-            fullPath: 
-            projectPath: 
-            originalPath: 
-            indexStatus: 0
-            workTreeStatus: 0
-        - path: Assets\Scenes\StartScreen.unity
-          label: StartScreen.unity
-          level: 2
-          isFolder: 0
-          isContainer: 0
-          isCollapsed: 0
-          isHidden: 0
-          isActive: 0
-          treeIsCheckable: 1
-          checkState: 0
-          isLocked: 0
-          gitStatusEntry:
-            path: Assets\Scenes\StartScreen.unity
-            fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Assets\Scenes\StartScreen.unity
-            projectPath: Assets\Scenes\StartScreen.unity
-            originalPath: 
-            indexStatus: 0
-            workTreeStatus: 3
         - path: Assets\Scripts
           label: Scripts
           level: 1
@@ -658,7 +543,7 @@ MonoBehaviour:
           label: MenuFontSizer.cs
           level: 2
           isFolder: 0
-          isContainer: 1
+          isContainer: 0
           isCollapsed: 0
           isHidden: 0
           isActive: 0
@@ -670,28 +555,10 @@ MonoBehaviour:
             fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Assets\Scripts\MenuFontSizer.cs
             projectPath: Assets\Scripts\MenuFontSizer.cs
             originalPath: 
-            indexStatus: 1
-            workTreeStatus: 1
-        - path: ProjectSettings\ProjectSettings.asset
-          label: ProjectSettings.asset
-          level: 1
-          isFolder: 0
-          isContainer: 0
-          isCollapsed: 0
-          isHidden: 0
-          isActive: 0
-          treeIsCheckable: 1
-          checkState: 0
-          isLocked: 0
-          gitStatusEntry:
-            path: ProjectSettings\ProjectSettings.asset
-            fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\ProjectSettings\ProjectSettings.asset
-            projectPath: ProjectSettings\ProjectSettings.asset
-            originalPath: 
             indexStatus: 0
             workTreeStatus: 3
-        - path: ProjectSettings\UnityConnectSettings.asset
-          label: UnityConnectSettings.asset
+        - path: ProjectSettings\VersionControlSettings.asset
+          label: VersionControlSettings.asset
           level: 1
           isFolder: 0
           isContainer: 0
@@ -702,81 +569,21 @@ MonoBehaviour:
           checkState: 0
           isLocked: 0
           gitStatusEntry:
-            path: ProjectSettings\UnityConnectSettings.asset
-            fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\ProjectSettings\UnityConnectSettings.asset
-            projectPath: ProjectSettings\UnityConnectSettings.asset
+            path: ProjectSettings\VersionControlSettings.asset
+            fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\ProjectSettings\VersionControlSettings.asset
+            projectPath: ProjectSettings\VersionControlSettings.asset
             originalPath: 
             indexStatus: 0
             workTreeStatus: 3
       folders:
         keys:
         - Assets
-        - Assets\Art
-        - Assets\Resources
-        - Assets\Scenes
         - Assets\Scripts
-        - Packages
         - ProjectSettings
-        - UserSettings
-        - UserSettings\Layouts
         values:
         - path: Assets
           label: Assets
           level: 0
-          isFolder: 1
-          isContainer: 0
-          isCollapsed: 0
-          isHidden: 0
-          isActive: 0
-          treeIsCheckable: 1
-          checkState: 0
-          isLocked: 0
-          gitStatusEntry:
-            path: 
-            fullPath: 
-            projectPath: 
-            originalPath: 
-            indexStatus: 0
-            workTreeStatus: 0
-        - path: Assets\Art
-          label: Art
-          level: 1
-          isFolder: 1
-          isContainer: 0
-          isCollapsed: 0
-          isHidden: 0
-          isActive: 0
-          treeIsCheckable: 1
-          checkState: 0
-          isLocked: 0
-          gitStatusEntry:
-            path: 
-            fullPath: 
-            projectPath: 
-            originalPath: 
-            indexStatus: 0
-            workTreeStatus: 0
-        - path: Assets\Resources
-          label: Resources
-          level: 1
-          isFolder: 1
-          isContainer: 0
-          isCollapsed: 0
-          isHidden: 0
-          isActive: 0
-          treeIsCheckable: 1
-          checkState: 0
-          isLocked: 0
-          gitStatusEntry:
-            path: 
-            fullPath: 
-            projectPath: 
-            originalPath: 
-            indexStatus: 0
-            workTreeStatus: 0
-        - path: Assets\Scenes
-          label: Scenes
-          level: 1
           isFolder: 1
           isContainer: 0
           isCollapsed: 0
@@ -810,63 +617,9 @@ MonoBehaviour:
             originalPath: 
             indexStatus: 0
             workTreeStatus: 0
-        - path: Packages
-          label: Packages
-          level: 0
-          isFolder: 1
-          isContainer: 0
-          isCollapsed: 0
-          isHidden: 0
-          isActive: 0
-          treeIsCheckable: 1
-          checkState: 0
-          isLocked: 0
-          gitStatusEntry:
-            path: 
-            fullPath: 
-            projectPath: 
-            originalPath: 
-            indexStatus: 0
-            workTreeStatus: 0
         - path: ProjectSettings
           label: ProjectSettings
           level: 0
-          isFolder: 1
-          isContainer: 0
-          isCollapsed: 0
-          isHidden: 0
-          isActive: 0
-          treeIsCheckable: 1
-          checkState: 0
-          isLocked: 0
-          gitStatusEntry:
-            path: 
-            fullPath: 
-            projectPath: 
-            originalPath: 
-            indexStatus: 0
-            workTreeStatus: 0
-        - path: UserSettings
-          label: UserSettings
-          level: 0
-          isFolder: 1
-          isContainer: 0
-          isCollapsed: 0
-          isHidden: 0
-          isActive: 0
-          treeIsCheckable: 1
-          checkState: 0
-          isLocked: 0
-          gitStatusEntry:
-            path: 
-            fullPath: 
-            projectPath: 
-            originalPath: 
-            indexStatus: 0
-            workTreeStatus: 0
-        - path: UserSettings\Layouts
-          label: Layouts
-          level: 1
           isFolder: 1
           isContainer: 0
           isCollapsed: 0
@@ -928,168 +681,6 @@ MonoBehaviour:
           originalPath: 
           indexStatus: 0
           workTreeStatus: 0
-      - path: Assets\Art
-        label: Art
-        level: 1
-        isFolder: 1
-        isContainer: 0
-        isCollapsed: 0
-        isHidden: 0
-        isActive: 0
-        treeIsCheckable: 1
-        checkState: 0
-        isLocked: 0
-        gitStatusEntry:
-          path: 
-          fullPath: 
-          projectPath: 
-          originalPath: 
-          indexStatus: 0
-          workTreeStatus: 0
-      - path: Assets\Art\GIJI.png
-        label: GIJI.png
-        level: 2
-        isFolder: 0
-        isContainer: 1
-        isCollapsed: 0
-        isHidden: 0
-        isActive: 0
-        treeIsCheckable: 1
-        checkState: 0
-        isLocked: 0
-        gitStatusEntry:
-          path: Assets\Art\GIJI.png
-          fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Assets\Art\GIJI.png
-          projectPath: Assets\Art\GIJI.png
-          originalPath: 
-          indexStatus: 1
-          workTreeStatus: 1
-      - path: Assets\Art\GIJI.png.meta
-        label: GIJI.png.meta
-        level: 3
-        isFolder: 0
-        isContainer: 0
-        isCollapsed: 0
-        isHidden: 0
-        isActive: 0
-        treeIsCheckable: 1
-        checkState: 0
-        isLocked: 0
-        gitStatusEntry:
-          path: Assets\Art\GIJI.png.meta
-          fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Assets\Art\GIJI.png.meta
-          projectPath: Assets\Art\GIJI.png.meta
-          originalPath: 
-          indexStatus: 1
-          workTreeStatus: 1
-      - path: Assets\Resources.meta
-        label: Resources.meta
-        level: 1
-        isFolder: 0
-        isContainer: 0
-        isCollapsed: 0
-        isHidden: 0
-        isActive: 0
-        treeIsCheckable: 1
-        checkState: 0
-        isLocked: 0
-        gitStatusEntry:
-          path: Assets\Resources.meta
-          fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Assets\Resources.meta
-          projectPath: Assets\Resources.meta
-          originalPath: 
-          indexStatus: 1
-          workTreeStatus: 1
-      - path: Assets\Resources
-        label: Resources
-        level: 1
-        isFolder: 1
-        isContainer: 0
-        isCollapsed: 0
-        isHidden: 0
-        isActive: 0
-        treeIsCheckable: 1
-        checkState: 0
-        isLocked: 0
-        gitStatusEntry:
-          path: 
-          fullPath: 
-          projectPath: 
-          originalPath: 
-          indexStatus: 0
-          workTreeStatus: 0
-      - path: Assets\Resources\BillingMode.json
-        label: BillingMode.json
-        level: 2
-        isFolder: 0
-        isContainer: 1
-        isCollapsed: 0
-        isHidden: 0
-        isActive: 0
-        treeIsCheckable: 1
-        checkState: 0
-        isLocked: 0
-        gitStatusEntry:
-          path: Assets\Resources\BillingMode.json
-          fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Assets\Resources\BillingMode.json
-          projectPath: Assets\Resources\BillingMode.json
-          originalPath: 
-          indexStatus: 1
-          workTreeStatus: 1
-      - path: Assets\Resources\BillingMode.json.meta
-        label: BillingMode.json.meta
-        level: 3
-        isFolder: 0
-        isContainer: 0
-        isCollapsed: 0
-        isHidden: 0
-        isActive: 0
-        treeIsCheckable: 1
-        checkState: 0
-        isLocked: 0
-        gitStatusEntry:
-          path: Assets\Resources\BillingMode.json.meta
-          fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Assets\Resources\BillingMode.json.meta
-          projectPath: Assets\Resources\BillingMode.json.meta
-          originalPath: 
-          indexStatus: 1
-          workTreeStatus: 1
-      - path: Assets\Scenes
-        label: Scenes
-        level: 1
-        isFolder: 1
-        isContainer: 0
-        isCollapsed: 0
-        isHidden: 0
-        isActive: 0
-        treeIsCheckable: 1
-        checkState: 0
-        isLocked: 0
-        gitStatusEntry:
-          path: 
-          fullPath: 
-          projectPath: 
-          originalPath: 
-          indexStatus: 0
-          workTreeStatus: 0
-      - path: Assets\Scenes\StartScreen.unity
-        label: StartScreen.unity
-        level: 2
-        isFolder: 0
-        isContainer: 0
-        isCollapsed: 0
-        isHidden: 0
-        isActive: 0
-        treeIsCheckable: 1
-        checkState: 0
-        isLocked: 0
-        gitStatusEntry:
-          path: Assets\Scenes\StartScreen.unity
-          fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Assets\Scenes\StartScreen.unity
-          projectPath: Assets\Scenes\StartScreen.unity
-          originalPath: 
-          indexStatus: 0
-          workTreeStatus: 3
       - path: Assets\Scripts
         label: Scripts
         level: 1
@@ -1112,7 +703,7 @@ MonoBehaviour:
         label: MenuFontSizer.cs
         level: 2
         isFolder: 0
-        isContainer: 1
+        isContainer: 0
         isCollapsed: 0
         isHidden: 0
         isActive: 0
@@ -1123,78 +714,6 @@ MonoBehaviour:
           path: Assets\Scripts\MenuFontSizer.cs
           fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Assets\Scripts\MenuFontSizer.cs
           projectPath: Assets\Scripts\MenuFontSizer.cs
-          originalPath: 
-          indexStatus: 1
-          workTreeStatus: 1
-      - path: Assets\Scripts\MenuFontSizer.cs.meta
-        label: MenuFontSizer.cs.meta
-        level: 3
-        isFolder: 0
-        isContainer: 0
-        isCollapsed: 0
-        isHidden: 0
-        isActive: 0
-        treeIsCheckable: 1
-        checkState: 0
-        isLocked: 0
-        gitStatusEntry:
-          path: Assets\Scripts\MenuFontSizer.cs.meta
-          fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Assets\Scripts\MenuFontSizer.cs.meta
-          projectPath: Assets\Scripts\MenuFontSizer.cs.meta
-          originalPath: 
-          indexStatus: 1
-          workTreeStatus: 1
-      - path: Packages
-        label: Packages
-        level: 0
-        isFolder: 1
-        isContainer: 0
-        isCollapsed: 0
-        isHidden: 0
-        isActive: 0
-        treeIsCheckable: 1
-        checkState: 0
-        isLocked: 0
-        gitStatusEntry:
-          path: 
-          fullPath: 
-          projectPath: 
-          originalPath: 
-          indexStatus: 0
-          workTreeStatus: 0
-      - path: Packages\manifest.json
-        label: manifest.json
-        level: 1
-        isFolder: 0
-        isContainer: 0
-        isCollapsed: 0
-        isHidden: 0
-        isActive: 0
-        treeIsCheckable: 1
-        checkState: 0
-        isLocked: 0
-        gitStatusEntry:
-          path: Packages\manifest.json
-          fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Packages\manifest.json
-          projectPath: Packages\manifest.json
-          originalPath: 
-          indexStatus: 0
-          workTreeStatus: 3
-      - path: Packages\packages-lock.json
-        label: packages-lock.json
-        level: 1
-        isFolder: 0
-        isContainer: 0
-        isCollapsed: 0
-        isHidden: 0
-        isActive: 0
-        treeIsCheckable: 1
-        checkState: 0
-        isLocked: 0
-        gitStatusEntry:
-          path: Packages\packages-lock.json
-          fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Packages\packages-lock.json
-          projectPath: Packages\packages-lock.json
           originalPath: 
           indexStatus: 0
           workTreeStatus: 3
@@ -1216,8 +735,8 @@ MonoBehaviour:
           originalPath: 
           indexStatus: 0
           workTreeStatus: 0
-      - path: ProjectSettings\ProjectSettings.asset
-        label: ProjectSettings.asset
+      - path: ProjectSettings\VersionControlSettings.asset
+        label: VersionControlSettings.asset
         level: 1
         isFolder: 0
         isContainer: 0
@@ -1228,81 +747,9 @@ MonoBehaviour:
         checkState: 0
         isLocked: 0
         gitStatusEntry:
-          path: ProjectSettings\ProjectSettings.asset
-          fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\ProjectSettings\ProjectSettings.asset
-          projectPath: ProjectSettings\ProjectSettings.asset
-          originalPath: 
-          indexStatus: 0
-          workTreeStatus: 3
-      - path: ProjectSettings\UnityConnectSettings.asset
-        label: UnityConnectSettings.asset
-        level: 1
-        isFolder: 0
-        isContainer: 0
-        isCollapsed: 0
-        isHidden: 0
-        isActive: 0
-        treeIsCheckable: 1
-        checkState: 0
-        isLocked: 0
-        gitStatusEntry:
-          path: ProjectSettings\UnityConnectSettings.asset
-          fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\ProjectSettings\UnityConnectSettings.asset
-          projectPath: ProjectSettings\UnityConnectSettings.asset
-          originalPath: 
-          indexStatus: 0
-          workTreeStatus: 3
-      - path: UserSettings
-        label: UserSettings
-        level: 0
-        isFolder: 1
-        isContainer: 0
-        isCollapsed: 0
-        isHidden: 0
-        isActive: 0
-        treeIsCheckable: 1
-        checkState: 0
-        isLocked: 0
-        gitStatusEntry:
-          path: 
-          fullPath: 
-          projectPath: 
-          originalPath: 
-          indexStatus: 0
-          workTreeStatus: 0
-      - path: UserSettings\Layouts
-        label: Layouts
-        level: 1
-        isFolder: 1
-        isContainer: 0
-        isCollapsed: 0
-        isHidden: 0
-        isActive: 0
-        treeIsCheckable: 1
-        checkState: 0
-        isLocked: 0
-        gitStatusEntry:
-          path: 
-          fullPath: 
-          projectPath: 
-          originalPath: 
-          indexStatus: 0
-          workTreeStatus: 0
-      - path: UserSettings\Layouts\default-2022.dwlt
-        label: default-2022.dwlt
-        level: 2
-        isFolder: 0
-        isContainer: 0
-        isCollapsed: 0
-        isHidden: 0
-        isActive: 0
-        treeIsCheckable: 1
-        checkState: 0
-        isLocked: 0
-        gitStatusEntry:
-          path: UserSettings\Layouts\default-2022.dwlt
-          fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\UserSettings\Layouts\default-2022.dwlt
-          projectPath: UserSettings\Layouts\default-2022.dwlt
+          path: ProjectSettings\VersionControlSettings.asset
+          fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\ProjectSettings\VersionControlSettings.asset
+          projectPath: ProjectSettings\VersionControlSettings.asset
           originalPath: 
           indexStatus: 0
           workTreeStatus: 3
@@ -1326,93 +773,27 @@ MonoBehaviour:
           indexStatus: 0
           workTreeStatus: 0
     gitStatusEntries:
-    - path: Assets\Art\GIJI.png
-      fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Assets\Art\GIJI.png
-      projectPath: Assets\Art\GIJI.png
-      originalPath: 
-      indexStatus: 1
-      workTreeStatus: 1
-    - path: Assets\Art\GIJI.png.meta
-      fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Assets\Art\GIJI.png.meta
-      projectPath: Assets\Art\GIJI.png.meta
-      originalPath: 
-      indexStatus: 1
-      workTreeStatus: 1
-    - path: Assets\Resources.meta
-      fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Assets\Resources.meta
-      projectPath: Assets\Resources.meta
-      originalPath: 
-      indexStatus: 1
-      workTreeStatus: 1
-    - path: Assets\Resources\BillingMode.json
-      fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Assets\Resources\BillingMode.json
-      projectPath: Assets\Resources\BillingMode.json
-      originalPath: 
-      indexStatus: 1
-      workTreeStatus: 1
-    - path: Assets\Resources\BillingMode.json.meta
-      fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Assets\Resources\BillingMode.json.meta
-      projectPath: Assets\Resources\BillingMode.json.meta
-      originalPath: 
-      indexStatus: 1
-      workTreeStatus: 1
-    - path: Assets\Scenes\StartScreen.unity
-      fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Assets\Scenes\StartScreen.unity
-      projectPath: Assets\Scenes\StartScreen.unity
-      originalPath: 
-      indexStatus: 0
-      workTreeStatus: 3
     - path: Assets\Scripts\MenuFontSizer.cs
       fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Assets\Scripts\MenuFontSizer.cs
       projectPath: Assets\Scripts\MenuFontSizer.cs
       originalPath: 
-      indexStatus: 1
-      workTreeStatus: 1
-    - path: Assets\Scripts\MenuFontSizer.cs.meta
-      fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Assets\Scripts\MenuFontSizer.cs.meta
-      projectPath: Assets\Scripts\MenuFontSizer.cs.meta
-      originalPath: 
-      indexStatus: 1
-      workTreeStatus: 1
-    - path: Packages\manifest.json
-      fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Packages\manifest.json
-      projectPath: Packages\manifest.json
+      indexStatus: 0
+      workTreeStatus: 3
+    - path: ProjectSettings\VersionControlSettings.asset
+      fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\ProjectSettings\VersionControlSettings.asset
+      projectPath: ProjectSettings\VersionControlSettings.asset
       originalPath: 
       indexStatus: 0
       workTreeStatus: 3
-    - path: Packages\packages-lock.json
-      fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\Packages\packages-lock.json
-      projectPath: Packages\packages-lock.json
-      originalPath: 
-      indexStatus: 0
-      workTreeStatus: 3
-    - path: ProjectSettings\ProjectSettings.asset
-      fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\ProjectSettings\ProjectSettings.asset
-      projectPath: ProjectSettings\ProjectSettings.asset
-      originalPath: 
-      indexStatus: 0
-      workTreeStatus: 3
-    - path: ProjectSettings\UnityConnectSettings.asset
-      fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\ProjectSettings\UnityConnectSettings.asset
-      projectPath: ProjectSettings\UnityConnectSettings.asset
-      originalPath: 
-      indexStatus: 0
-      workTreeStatus: 3
-    - path: UserSettings\Layouts\default-2022.dwlt
-      fullPath: D:\Documents\GijiUnityApp\GijiUnityApp\UserSettings\Layouts\default-2022.dwlt
-      projectPath: UserSettings\Layouts\default-2022.dwlt
-      originalPath: 
-      indexStatus: 0
-      workTreeStatus: 3
-    changedFilesText: 13 changed files
+    changedFilesText: 2 changed files
     lastCurrentBranchChangedEvent:
-      updatedTimeString: 2022-08-28T23:00:41.173-04:00
+      updatedTimeString: 2022-08-28T23:03:58.039-04:00
       cacheType: 1
     lastStatusEntriesChangedEvent:
-      updatedTimeString: 2022-08-28T23:03:38.433-04:00
+      updatedTimeString: 2022-08-28T23:51:44.323-04:00
       cacheType: 6
     lastLocksChangedEvent:
-      updatedTimeString: 2022-08-28T23:03:03.944-04:00
+      updatedTimeString: 2022-08-28T23:44:18.290-04:00
       cacheType: 7
   historyView:
     currentLogHasUpdate: 0
@@ -30222,13 +29603,13 @@ MonoBehaviour:
     m_Image: {fileID: 0}
     m_Tooltip: Url of the origin remote
   lastCurrentBranchAndRemoteChangedEvent:
-    updatedTimeString: 2022-08-28T23:00:41.173-04:00
+    updatedTimeString: 2022-08-28T23:03:58.039-04:00
     cacheType: 1
   lastTrackingStatusChangedEvent:
-    updatedTimeString: 2022-08-28T23:00:17.053-04:00
+    updatedTimeString: 2022-08-28T23:03:58.063-04:00
     cacheType: 5
   lastStatusEntriesChangedEvent:
-    updatedTimeString: 2022-08-28T23:03:38.433-04:00
+    updatedTimeString: 2022-08-28T23:30:56.714-04:00
     cacheType: 6
   pullButtonContent:
     m_Text: Pull
@@ -30287,7 +29668,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 0
+  m_LastVerticalScrollValue: 130
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
@@ -30324,23 +29705,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 24fbffff14620000486200005a6200007a6200008c620000a8620000d8620000e2620000ec620000
+      m_SelectedIDs: e4620000
+      m_LastClickedID: 25316
+      m_ExpandedIDs: 24fbffff22620000586200007262000092620000a6620000c26200001e6300002a63000034630000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: GameObject (2)
-        m_OriginalName: GameObject (2)
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -13674
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 4
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 8}
       m_SearchString: 
@@ -30641,9 +30022,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 2.986624, y: -1.4881626, z: -1.7850901}
+    m_Target: {x: 2.8926902, y: 0.90082496, z: 346.78558}
     speed: 2
-    m_Value: {x: 2.986624, y: -1.4881626, z: -1.7850901}
+    m_Value: {x: 2.8926902, y: 0.90082496, z: 346.78558}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -30693,9 +30074,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 7.608873
+    m_Target: 8.545004
     speed: 2
-    m_Value: 7.608873
+    m_Value: 8.545004
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -30975,7 +30356,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 64.88618}
     m_SelectedIDs: 92740000
     m_LastClickedID: 29842
-    m_ExpandedIDs: 000000007c7400007e74000000ca9a3bffffff7f
+    m_ExpandedIDs: 00000000c8740000ca740000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -31003,7 +30384,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000007c7400007e740000
+    m_ExpandedIDs: 00000000c8740000ca740000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

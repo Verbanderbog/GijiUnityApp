@@ -5,25 +5,15 @@ using UnityEngine;
 
 public class MenuFontSizer : MonoBehaviour
 {
+    public TextMeshProUGUI autosizeTemplate;
     public TextMeshProUGUI[] myTexts;
 
     void OptimiseTextSizes()
     {
 
-        int maxLength = myTexts[0].text.Length;
-        float size = 0;
         foreach (TextMeshProUGUI t in myTexts)
         {
-            if (t.text.Length > maxLength)
-            {
-                maxLength = t.text.Length;
-                size = t.fontSize;
-            }
-        }
-
-        foreach (TextMeshProUGUI t in myTexts)
-        {
-            t.fontSize = size;
+            t.fontSize = autosizeTemplate.fontSize;
         }
 
     }
