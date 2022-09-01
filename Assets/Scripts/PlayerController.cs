@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, ISavable
 {
     public float moveSpeed;
     public LayerMask solidObjectsLayer;
@@ -123,6 +123,16 @@ public class PlayerController : MonoBehaviour
         {
             return 0;
         }
+    }
+
+    public object CaptureState()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void RestoreState(object state)
+    {
+        throw new System.NotImplementedException();
     }
 }
 
