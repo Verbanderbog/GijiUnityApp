@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81f3b5671a23fcc41a5dee9eac74343c, type: 3}
+  m_Name: Giji's Adventure
+  m_EditorClassIdentifier: 
+  releaseMonth: 9
+  releaseDay: 23
+  releaseYear: 2015
+  albumArt: {fileID: 21300000, guid: d9cc758cbe22f52489db01c86aca26ea, type: 3}

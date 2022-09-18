@@ -5,31 +5,41 @@ using UnityEngine.Video;
 
 public class VideoProgressBar : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
-    [SerializeField]
-    private VideoPlayer videoPlayer;
-
+    [SerializeField] private VideoPlayer videoPlayer;
+    [SerializeField] private AudioSource audioPlayer;
+    [SerializeField] private FadeUI panel;
     private Slider progress;
     [SerializeField] private Image bar;
     private bool inRect;
     private bool playState;
 
+    public bool InRect { get => inRect; set => inRect = value; }
+
     private void Awake()
     {
-        inRect = false;
+        InRect = false;
         progress = GetComponent<Slider>();
         //bar = this.transform.Find("Background").GetComponent<Image>();
     }
 
     private void Update()
     {
-        if (videoPlayer.frameCount > 0 && videoPlayer.isPlaying)
-            progress.value = (float)videoPlayer.frame / (float)videoPlayer.frameCount;
+        if (videoPlayer.clip != null)
+        {
+            if (videoPlayer.frameCount > 0 && !InRect)
+                progress.value = (float)videoPlayer.frame / (float)videoPlayer.frameCount;
+        } else if (audioPlayer.clip != null)
+        {
+            if (audioPlayer.time > 0 && !InRect)
+                progress.value = audioPlayer.time / audioPlayer.clip.length;
+        }
+        
     }
 
     public void OnDrag(PointerEventData eventData)
     {
 
-        if (inRect)
+        if (InRect)
         {
             SkipToPercent(progress.value);
         }
@@ -41,20 +51,36 @@ public class VideoProgressBar : MonoBehaviour, IDragHandler, IPointerDownHandler
 
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(bar.rectTransform, eventData.position, null, out localPoint))
         {
-            inRect = true;
-            playState = videoPlayer.isPlaying;
-            videoPlayer.Pause();
+            InRect = true;
+            if (videoPlayer.clip != null)
+            {
+                playState = videoPlayer.isPlaying;
+                videoPlayer.Pause();
+            } else
+            {
+                playState = audioPlayer.isPlaying;
+                audioPlayer.Pause();
+            }
             SkipToPercent(progress.value);
         }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (inRect)
+        if (InRect)
         {
-            inRect = false;
-            if (playState)
-                videoPlayer.Play();
+            InRect = false;
+            if (playState) {
+                if (videoPlayer.clip != null)
+                {
+                    videoPlayer.Play();
+                }
+                else if (audioPlayer.clip != null)
+                {
+                    audioPlayer.Play();
+                }
+            }
+                
         }
     }
 
@@ -71,10 +97,23 @@ public class VideoProgressBar : MonoBehaviour, IDragHandler, IPointerDownHandler
 
     private void SkipToPercent(float pct)
     {
-        var frame = videoPlayer.frameCount * pct;
-        videoPlayer.frame = (long)frame;
+        
+        if (videoPlayer.clip != null)
+        {
+            var frame = videoPlayer.frameCount * pct;
+            videoPlayer.frame = (long)frame;
+        }
+        else if (audioPlayer.clip != null)
+        {
+            var adjust = 0F;
+            if (pct >= 1)
+            {
+                adjust = 0.05F;
+                pct = 1;
+            }
+            audioPlayer.time = (audioPlayer.clip.length * pct) - adjust;
+        }
     }
-
     
 }
 
