@@ -18,6 +18,7 @@ public class FadeUI : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointer
     private CanvasGroup canvasGroup;
     private DateTime activeTime;
     private DateTime startTime;
+    private bool forceFade;
     public void OnDrag(PointerEventData eventData)
     {
         activeTimer();
@@ -41,6 +42,7 @@ public class FadeUI : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointer
    
     void Awake()
     {
+        forceFade = false;
         canvasGroup = GetComponent<CanvasGroup>();
         activeTimer();
         startTime = DateTime.Now;
@@ -48,6 +50,7 @@ public class FadeUI : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointer
 
     void Start()
     {
+        forceFade = false;
         startTime = DateTime.Now;
     }
 
@@ -63,7 +66,7 @@ public class FadeUI : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointer
         startTime = DateTime.Now;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (videoPlayer.isPlaying || audioPlayer.isPlaying)
@@ -76,6 +79,7 @@ public class FadeUI : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointer
                 if (percentComplete >= 1)
                 {
                     percentComplete = 1;
+                    forceFade = false;
                     gameObject.SetActive(false);
                 }
                 canvasGroup.alpha = 1 - percentComplete;
@@ -99,11 +103,13 @@ public class FadeUI : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointer
 
     public void activeTimer()
     {
-        activeTime = DateTime.Now;
+        if (!forceFade)
+            activeTime = DateTime.Now;
     }
 
     public void fadeOut()
     {
+        forceFade = true;
         activeTime = DateTime.Now - (fadeOutStartTime + (fadeOutEndTime-fadeOutStartTime)/2);
     }
 }

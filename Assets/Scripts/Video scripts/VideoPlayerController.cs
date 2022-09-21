@@ -27,6 +27,7 @@ public class VideoPlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         setTrack(playlistIndex);
     }
 
@@ -41,6 +42,7 @@ public class VideoPlayerController : MonoBehaviour
         videoPlayer = GetComponent<VideoPlayer>();
         audioPlayer = GetComponent<AudioSource>();
         progressScript = progress.GetComponent<VideoProgressBar>();
+        audioPlayer.volume = PlayerPrefs.GetInt("MusicVolume")/100.0F;
         setTrack(playlistIndex);
     }
 
