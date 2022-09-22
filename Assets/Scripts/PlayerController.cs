@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour, ISavable
 {
@@ -8,14 +10,16 @@ public class PlayerController : MonoBehaviour, ISavable
     public LayerMask solidObjectsLayer;
     public LayerMask interactablesLayer;
 
+    private Gamepad gamepad;
+
     private bool isMoving;
     private Vector2 input;
-    private bool lastMoveVert;
 
     private Animator animator;
 
     private void Awake()
     {
+        gamepad = Gamepad.current;
         animator = GetComponent<Animator>();
     }
 
@@ -24,34 +28,15 @@ public class PlayerController : MonoBehaviour, ISavable
     {
         if (!isMoving)
         {
-            if (lastMoveVert)
+            input = gamepad.leftStick.ReadValue();
+            if (Math.Abs(input.x)> Math.Abs(input.y))
             {
-                input.y = Input.GetAxisRaw("Vertical");
-                if (input.y == 0)
-                {
-                    lastMoveVert = false;
-                    input.x = Input.GetAxisRaw("Horizontal");
-                }
-                else
-                {
-                    lastMoveVert = true;
-                    input.x = 0;
-                }
-            }
-            else
+                input.y = 0;
+            } else
             {
-                input.x = Input.GetAxisRaw("Horizontal");
-                if (input.x == 0)
-                {
-                    lastMoveVert = true;
-                    input.y = Input.GetAxisRaw("Vertical");
-                }
-                else
-                {
-                    lastMoveVert = false;
-                    input.y = 0;
-                }
+                input.x = 0;
             }
+            
             if (input != Vector2.zero)
             {
                 animator.SetFloat("moveX", input.x);
@@ -112,10 +97,10 @@ public class PlayerController : MonoBehaviour, ISavable
 
     private float adjustInput(float input)
     {
-        if (input > .2f)
+        if (input > .35f)
         {
             return 1f;
-        } else if (input < -.2f)
+        } else if (input < -.35f)
         {
             return -1f;
         }
