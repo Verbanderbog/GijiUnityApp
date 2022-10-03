@@ -1,12 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCController : MonoBehaviour, Interactable 
+public class NPCController : MonoBehaviour, Interactable, ISavable
 {
+    [SerializeField] List<Dialog> dialogs;
+    [SerializeField] int dialogIndex;
+    
     public void Interact()
     {
-        throw new System.NotImplementedException();
+        
+        StartCoroutine(DialogManager.Instance.ShowDialog(dialogs[dialogIndex]));
     }
 
     // Start is called before the first frame update
@@ -19,5 +24,15 @@ public class NPCController : MonoBehaviour, Interactable
     void Update()
     {
         
+    }
+
+    public object CaptureState()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void RestoreState(object state)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b112c802b05de1e4a98ce0334b26b3a6, type: 3}
+  m_Name: DefaultCharacter
+  m_EditorClassIdentifier: 
+  Name: Rando NPC
+  images:
+  - {fileID: 21300000, guid: dae074fea68c5d74993ed17851c28992, type: 3}
+  - {fileID: 21300000, guid: 044802d31f1031d45a2f6b136bba7758, type: 3}
+  - {fileID: 21300000, guid: b449c006637ecef4b97f650d1917aafc, type: 3}
+  - {fileID: 21300000, guid: e5a52dc5f8f2e6c47b8cb43ff78c8fd0, type: 3}
+  - {fileID: 21300000, guid: e5a52dc5f8f2e6c47b8cb43ff78c8fd0, type: 3}

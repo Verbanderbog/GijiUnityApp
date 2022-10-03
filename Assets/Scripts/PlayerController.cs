@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour, ISavable
     private Vector2 input;
 
     private Animator animator;
+    public CharacterArt art;
 
     private void Awake()
     {
@@ -23,9 +24,14 @@ public class PlayerController : MonoBehaviour, ISavable
         animator = GetComponent<Animator>();
     }
 
+
     // Update is called once per frame
-    void Update()
+    public void HandleUpdate()
     {
+        if (gamepad == null)
+        {
+            gamepad = Gamepad.current;
+        }
         if (!isMoving)
         {
             input = gamepad.leftStick.ReadValue();
@@ -54,9 +60,10 @@ public class PlayerController : MonoBehaviour, ISavable
         }
         animator.SetBool("isMoving", isMoving);
 
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z) || gamepad.buttonSouth.wasPressedThisFrame)
             Interact();
     }
+
 
     private void FixedUpdate()
     {

@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: PlaylistScriptableObject
   m_EditorClassIdentifier: 
   tracks:
-  - {fileID: 11400000, guid: eeb3d6b939ade5c4ea1e2eb953fe7076, type: 2}
   - {fileID: 11400000, guid: fee3c87337f639a40be8e55e2517475d, type: 2}
+  - {fileID: 11400000, guid: eeb3d6b939ade5c4ea1e2eb953fe7076, type: 2}
   - {fileID: 11400000, guid: 4c3afd08d372b2e4ab9c5a4c5dee1b4f, type: 2}
+  - {fileID: 11400000, guid: 67ab20ef2f52c33408b12e958be91e52, type: 2}
+  - {fileID: 11400000, guid: b92f0677658eab84b8df3c627948b027, type: 2}
+  - {fileID: 11400000, guid: b2ec74da73ed3e141826fc9c1b216fc2, type: 2}
   sorted: 0

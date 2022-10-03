@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42adf4fbcbfc12c4a8def733f3fa6cdc, type: 3}
+  m_Name: Level 2 Mark alt better
+  m_EditorClassIdentifier: 
+  author: {fileID: 11400000, guid: f954a457f2be4d441befcd329f9a99a1, type: 2}
+  album: {fileID: 11400000, guid: 9f200b950f93079458d904eae23df455, type: 2}
+  featuring: {fileID: 0}
+  audioClip: {fileID: 8300000, guid: 0cb27afab7ec3a3469a5916f137eb44a, type: 3}
+  audioImage: {fileID: 21300000, guid: d9cc758cbe22f52489db01c86aca26ea, type: 3}
+  videoClip: {fileID: 0}
+  trackType: 1
