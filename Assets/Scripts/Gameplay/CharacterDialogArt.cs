@@ -14,7 +14,7 @@ public enum Reaction
     Angry
 }
 [CreateAssetMenu(fileName = "CharacterArtScriptableObject", menuName = "ScriptableObjects/CharacterArt")]
-public class CharacterArt : ScriptableObject
+public class CharacterDialogArt : ScriptableObject
 {
     public string Name;
     private static int reactions = Enum.GetNames(typeof(Reaction)).Length;

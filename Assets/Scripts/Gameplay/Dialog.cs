@@ -7,9 +7,9 @@ public class Dialog
 {
 
     [SerializeField] List<LineInfo> lines;
-    [SerializeField] List<CharacterArt> participants;
+    [SerializeField] List<CharacterDialogArt> participants;
     public List<LineInfo> Lines { get { return lines; } }
-    public List<CharacterArt> Participants { get { return participants; } }
+    public List<CharacterDialogArt> Participants { get { return participants; } }
 
 
 }

@@ -13,6 +13,7 @@ public class DialogManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI dialogText;
     [SerializeField] Image dialogReaction;
 
+
     Gamepad gamepad;
 
     public event Action OnShowDialog;
@@ -39,7 +40,16 @@ public class DialogManager : MonoBehaviour
         this.dialog = dialog;
 
         dialogContainer.SetActive(true);
-        dialogReaction.sprite = dialog.Participants[dialog.Lines[0].ParticipantIndex].images[(int)dialog.Lines[0].Reaction];
+        dialogReaction.sprite = (dialog.Lines[0].Reaction != Reaction.Empty && dialog.Lines[0].ParticipantIndex >=0) ? dialog.Participants[dialog.Lines[0].ParticipantIndex].images[(int)dialog.Lines[0].Reaction] : null;
+        if (dialog.Lines[0].Reaction != Reaction.Empty && dialog.Lines[0].ParticipantIndex >= 0)
+        {
+            dialogReaction.enabled = true;
+            dialogReaction.sprite = dialog.Participants[dialog.Lines[0].ParticipantIndex].images[(int)dialog.Lines[0].Reaction];
+        }
+        else
+        {
+            dialogReaction.enabled = false;
+        }
         string type = dialog.Participants[dialog.Lines[0].ParticipantIndex].Name;
         type = (type == null || type == "") ? dialog.Lines[0].Line : type + ": " + dialog.Lines[0].Line;
         StartCoroutine(TypeDialog(type));
@@ -105,12 +115,16 @@ public class DialogManager : MonoBehaviour
             ++currentLine;
             if (currentLine < dialog.Lines.Count)
             {
-                if (!dialogReaction.sprite.Equals(dialog.Participants[dialog.Lines[currentLine].ParticipantIndex].images[(int)dialog.Lines[currentLine].Reaction]))
+                if (dialog.Lines[currentLine].Reaction == Reaction.Empty || dialog.Lines[currentLine].ParticipantIndex < 0)
                 {
-                    
-                    dialogReaction.sprite = (dialog.Participants[dialog.Lines[currentLine].ParticipantIndex].images[(int)dialog.Lines[currentLine].Reaction]);
+                    dialogReaction.enabled = false;
                 }
-                string type = dialog.Participants[dialog.Lines[currentLine].ParticipantIndex].Name;
+                else if (!dialog.Participants[dialog.Lines[currentLine].ParticipantIndex].images[(int)dialog.Lines[currentLine].Reaction].Equals(dialogReaction.sprite))
+                {
+                    dialogReaction.enabled = true;
+                    dialogReaction.sprite = dialog.Participants[dialog.Lines[currentLine].ParticipantIndex].images[(int)dialog.Lines[currentLine].Reaction];
+                }
+                string type = (dialog.Lines[currentLine].ParticipantIndex<0) ? null : dialog.Participants[dialog.Lines[currentLine].ParticipantIndex].Name ;
                 type = (type == null || type == "") ? dialog.Lines[currentLine].Line : type + ": " + dialog.Lines[currentLine].Line;
                 StartCoroutine(TypeDialog(type));
             }
