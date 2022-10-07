@@ -5,63 +5,116 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    Animator animator;
+    CharacterAnimator animator;
     public float moveSpeed;
 
-    public Animator Animator { get => animator; }
+    public CharacterAnimator Animator { get => animator; }
     public bool IsMoving { get; private set; }
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponent<CharacterAnimator>();
     }
     public void HandleUpdate()
     {
-        animator.SetBool("isMoving", IsMoving);
+        animator.IsMoving = IsMoving;
     }
-    public IEnumerator Move(Vector2 moveVec, Action OnMoveOver=null)
+    public IEnumerator Move(Vector2 moveVec, Action OnMoveOver = null)
     {
-        animator.SetFloat("moveX", moveVec.x);
-        animator.SetFloat("moveY", moveVec.y);
+
+        if (animator == null)
+            animator = GetComponent<CharacterAnimator>();
+        animator.MoveX = moveVec.x;
+        animator.MoveY = moveVec.y;
+
+        moveVec.x += adjustInput(moveVec.x);
+        moveVec.y += adjustInput(moveVec.y);
 
         var targetPos = transform.position;
-        targetPos.x += adjustInput(moveVec.x);
-        targetPos.y += adjustInput(moveVec.y);
 
-        if (!IsWalkable(targetPos))
+        var distance = Convert.ToInt32(moveVec.magnitude);
+        Vector3 dir = moveVec.normalized;
+        var walkable = IsWalkable(transform.position + dir);
+        if (!walkable[0])
         {
             yield break;
         }
-        IsMoving = true;
-        while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
+        while (walkable[1])
         {
-            Debug.Log("Point Reached");
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
             yield return null;
+            walkable = IsWalkable(transform.position + dir);
         }
-        transform.position = targetPos;
+        IsMoving = true;
+        for (int i = distance; i > 0; i--)
+        {
+            var breakWalking = false;
+            targetPos += dir;
+            var prevPos = transform.position;
+            while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+                walkable = IsWalkable(targetPos);
+                if (!walkable[0])
+                {
+                    transform.position = prevPos;
+                    breakWalking = true;
+                    break;
+                }
+                while (walkable[1])
+                {
+                    IsMoving = false;
+                    yield return null;
+                    walkable = IsWalkable(targetPos);
+                    IsMoving = true;
+
+                }
+                yield return null;
+            }
+            if (breakWalking)
+                break;
+            transform.position = targetPos;
+            walkable = IsWalkable(transform.position + dir);
+            if (!walkable[0])
+            {
+                break;
+            }
+            while (walkable[1])
+            {
+                IsMoving = false;
+                yield return null;
+                walkable = IsWalkable(transform.position + dir);
+                IsMoving = true;
+            }
+        }
+
         IsMoving = false;
         OnMoveOver?.Invoke();
     }
-
-    private bool IsWalkable(Vector3 targetPos)
+    private bool IsPathClear(Vector3 targetPos)
     {
-        if (Physics2D.OverlapCircle(targetPos, 0.1f, GameLayers.i.SolidLayer | GameLayers.i.InteractableLayer) != null)
-        {
-            return false;
-        }
-        return true;
+        var diff = targetPos - transform.position;
+        var dir = diff.normalized;
+        return !Physics2D.BoxCast(transform.position + dir, new Vector2(0.2f, 0.2f), 0f, dir, diff.magnitude - 1, GameLayers.i.SolidLayer | GameLayers.i.InteractableLayer | GameLayers.i.PlayerLayer);
     }
+    private bool[] IsWalkable(Vector3 targetPos)
+    {
+        var collision = Physics2D.OverlapCircle(targetPos, 0.1f, GameLayers.i.SolidLayer | GameLayers.i.InteractableLayer | GameLayers.i.PlayerLayer);
+        var playerCollide = (collision != null)? GameLayers.i.PlayerLayer == (GameLayers.i.PlayerLayer | (1 << collision.gameObject.layer)) :false;
+        var isNotSelf = (collision != null) ? collision.GetComponent<Character>() != this : false;
+        return new bool[] { !(collision != null && isNotSelf && !playerCollide), playerCollide && isNotSelf};
+    }
+
+
 
     private float adjustInput(float input)
     {
         if (input > .35f)
         {
-            return 1f;
+            return Mathf.Ceil(input);
         }
         else if (input < -.35f)
         {
-            return -1f;
+            return Mathf.Floor(input);
         }
         else
         {

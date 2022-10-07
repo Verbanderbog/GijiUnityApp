@@ -19,26 +19,30 @@ public class DialogManager : MonoBehaviour
     public event Action OnShowDialog;
     public event Action OnCloseDialog;
 
+    //public bool IsShowing { get; private set; }
+
     public static DialogManager Instance { get; private set; }
     private void Awake()
     {
         Instance = this;
         gamepad = Gamepad.current;
     }
-
+    Action onDialogFinished;
     Dialog dialog;
     int currentLine = 0;
     bool isTyping = false;
     bool endTyping = false;
 
-    public IEnumerator ShowDialog(Dialog dialog)
+    public IEnumerator ShowDialog(Dialog dialog, Action onDialogFinished=null)
     {
         if (gamepad == null)
             gamepad = Gamepad.current;
+        this.onDialogFinished = onDialogFinished;
         yield return new WaitForEndOfFrame();
         OnShowDialog?.Invoke();
+        //IsShowing = true;
         this.dialog = dialog;
-
+        
         dialogContainer.SetActive(true);
         dialogReaction.sprite = (dialog.Lines[0].Reaction != Reaction.Empty && dialog.Lines[0].ParticipantIndex >=0) ? dialog.Participants[dialog.Lines[0].ParticipantIndex].images[(int)dialog.Lines[0].Reaction] : null;
         if (dialog.Lines[0].Reaction != Reaction.Empty && dialog.Lines[0].ParticipantIndex >= 0)
@@ -131,7 +135,9 @@ public class DialogManager : MonoBehaviour
             else
             {
                 currentLine = 0;
+                //IsShowing = false;
                 dialogContainer.SetActive(false);
+                onDialogFinished?.Invoke();
                 OnCloseDialog?.Invoke();
             }
         }
