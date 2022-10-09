@@ -9,6 +9,7 @@ public class GameMenuController : MonoBehaviour
     private Gamepad gamepad;
     [SerializeField] List<GameObject> selectionArrows;
     [SerializeField] List<Button> menuButtons;
+    [SerializeField] GameObject menu;
     private int selection = 0;
     DateTime lastStickMove;
     private static readonly TimeSpan STICK_DELAY = TimeSpan.FromMilliseconds(350);
@@ -23,7 +24,7 @@ public class GameMenuController : MonoBehaviour
             gamepad = Gamepad.current;
         if (gamepad.buttonEast.wasPressedThisFrame)
         {
-            this.gameObject.SetActive(false);
+            menu.SetActive(false);
             GameController.Instance.MenuState(false);
         }
         else

@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+
     CharacterAnimator animator;
     public float moveSpeed;
 
     public CharacterAnimator Animator { get => animator; }
     public bool IsMoving { get; private set; }
+    public bool OnIce { get; private set; }
 
     private void Awake()
     {
@@ -18,6 +20,9 @@ public class Character : MonoBehaviour
     public void HandleUpdate()
     {
         animator.IsMoving = IsMoving;
+        animator.OnIce = OnIce;
+
+
     }
     public IEnumerator Move(Vector2 moveVec, Action OnMoveOver = null)
     {
@@ -50,9 +55,24 @@ public class Character : MonoBehaviour
             var breakWalking = false;
             targetPos += dir;
             var prevPos = transform.position;
+            if (TileDetector.Instance.GetTileType(targetPos) == TileType.Ice)
+            {
+                OnIce = true;
+                i++;
+            }
+            else
+            {
+                if (OnIce)
+                {
+                    transform.position = prevPos;
+                    breakWalking = true;
+                }
+                OnIce = false;
+            }
             while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+
                 walkable = IsWalkable(targetPos);
                 if (!walkable[0])
                 {
@@ -99,9 +119,9 @@ public class Character : MonoBehaviour
     private bool[] IsWalkable(Vector3 targetPos)
     {
         var collision = Physics2D.OverlapCircle(targetPos, 0.1f, GameLayers.i.SolidLayer | GameLayers.i.InteractableLayer | GameLayers.i.PlayerLayer);
-        var playerCollide = (collision != null)? GameLayers.i.PlayerLayer == (GameLayers.i.PlayerLayer | (1 << collision.gameObject.layer)) :false;
+        var playerCollide = (collision != null) ? GameLayers.i.PlayerLayer == (GameLayers.i.PlayerLayer | (1 << collision.gameObject.layer)) : false;
         var isNotSelf = (collision != null) ? collision.GetComponent<Character>() != this : false;
-        return new bool[] { !(collision != null && isNotSelf && !playerCollide), playerCollide && isNotSelf};
+        return new bool[] { !(collision != null && isNotSelf && !playerCollide), playerCollide && isNotSelf };
     }
 
 

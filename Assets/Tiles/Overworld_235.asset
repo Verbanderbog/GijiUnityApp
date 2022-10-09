@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
+  m_Script: {fileID: 11500000, guid: d27931462c6a91b48adeb2a6c2727f6c, type: 3}
   m_Name: Overworld_235
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: -1487211953, guid: 5826a01e484529c48b47cf716a505b7b, type: 3}
@@ -34,3 +34,4 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 1
   m_ColliderType: 1
+  tileType: 1

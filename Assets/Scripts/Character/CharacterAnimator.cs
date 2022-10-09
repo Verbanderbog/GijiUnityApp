@@ -9,6 +9,11 @@ public class CharacterAnimator : MonoBehaviour
     [SerializeField] List<Sprite> walkRightSprites;
     [SerializeField] List<Sprite> walkLeftSprites;
 
+    [SerializeField] List<Sprite> slideDownSprites;
+    [SerializeField] List<Sprite> slideUpSprites;
+    [SerializeField] List<Sprite> slideRightSprites;
+    [SerializeField] List<Sprite> slideLeftSprites;
+
     public float MoveX { get; set; }
     public float MoveY { get; set; }
     public bool IsMoving { get; set; }
@@ -19,10 +24,16 @@ public class CharacterAnimator : MonoBehaviour
     SpriteAnimator walkRightAnim;
     SpriteAnimator walkLeftAnim;
 
+    SpriteAnimator slideRightAnim;
+    SpriteAnimator slideLeftAnim;
+    SpriteAnimator slideUpAnim;
+    SpriteAnimator slideDownAnim;
+
     SpriteAnimator currentAnim;
     bool wasPreviouslyMoving;
 
     SpriteRenderer spriteRenderer;
+    
 
     private void Start()
     {
@@ -31,6 +42,11 @@ public class CharacterAnimator : MonoBehaviour
         walkUpAnim = new SpriteAnimator(walkUpSprites, spriteRenderer);
         walkRightAnim = new SpriteAnimator(walkRightSprites, spriteRenderer);
         walkLeftAnim = new SpriteAnimator(walkLeftSprites, spriteRenderer);
+
+        slideDownAnim = new SpriteAnimator(slideDownSprites, spriteRenderer, 0.08f);
+        slideUpAnim = new SpriteAnimator(slideUpSprites, spriteRenderer, 0.08f);
+        slideRightAnim = new SpriteAnimator(slideRightSprites, spriteRenderer, 0.08f);
+        slideLeftAnim = new SpriteAnimator(slideLeftSprites, spriteRenderer,0.08f);
 
         currentAnim = walkDownAnim;
     }
@@ -55,6 +71,25 @@ public class CharacterAnimator : MonoBehaviour
             else if (MoveY < 0)
             {
                 currentAnim = walkDownAnim;
+            }
+        }
+        else
+        {
+            if (MoveX > 0)
+            {
+                currentAnim = slideRightAnim;
+            }
+            else if (MoveX < 0)
+            {
+                currentAnim = slideLeftAnim;
+            }
+            else if (MoveY > 0)
+            {
+                currentAnim = slideUpAnim;
+            }
+            else if (MoveY < 0)
+            {
+                currentAnim = slideDownAnim;
             }
         }
 
