@@ -24,7 +24,14 @@ public class DialogManager : MonoBehaviour
     public static DialogManager Instance { get; private set; }
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            DestroyImmediate(this);
+        }
         gamepad = Gamepad.current;
     }
     Action onDialogFinished;
@@ -76,7 +83,7 @@ public class DialogManager : MonoBehaviour
             }
             dialogText.text += letter;
             float speedMultiplier = (gamepad.buttonSouth.isPressed) ? 2f: 1f;
-            yield return new WaitForSeconds(1f / ((PlayerPrefs.GetInt("Letters per second") != 0) ? PlayerPrefs.GetInt("Letters per second") * speedMultiplier : 50f * speedMultiplier));
+            yield return new WaitForSeconds(1f / ((PlayerPrefs.GetInt("Text Speed") != 0) ? PlayerPrefs.GetInt("Text Speed") * speedMultiplier : 50f * speedMultiplier));
         }
         isTyping = false;
 

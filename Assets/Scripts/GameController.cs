@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum GameState { FreeRoam, Dialog, Menu}
+public enum GameState { FreeRoam, Dialog, Menu, SceneSwitch}
 
 public class GameController : MonoBehaviour
 {
@@ -12,17 +12,18 @@ public class GameController : MonoBehaviour
     GameMenuController gameMenuController;
     public static GameController Instance { get; private set; }
 
-    GameState previousState;
+    List<GameState> previousStates;
     GameState state;
-
+    public GameState State { get => state; }
     // Start is called before the first frame update
     void Awake()
     {
         Instance = this;
         gameMenuController = GetComponent<GameMenuController>();
+        previousStates = new List<GameState>();
         DialogManager.Instance.OnShowDialog += () =>
         {
-            previousState = state;
+            previousStates.Add(state);
             state = GameState.Dialog;
         };
         DialogManager.Instance.OnCloseDialog += () =>
@@ -37,16 +38,16 @@ public class GameController : MonoBehaviour
 
     void RevertState()
     {
-        GameState temp = state;
-        state = previousState;
-        previousState = temp;
+        state = previousStates[previousStates.Count-1];
+        previousStates.RemoveAt(previousStates.Count - 1);
+        
     }
 
     public void MenuState(bool menu)
     {
          if (menu)
         {
-            previousState = state;
+            previousStates.Add(state);
             state = GameState.Menu;
         } else
         {
@@ -54,10 +55,19 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void Quit()
+    public void SceneState(bool sceneSwitch)
     {
-        SceneManager.LoadScene(0);
+        if (sceneSwitch)
+        {
+            previousStates.Add(state);
+            state = GameState.SceneSwitch;
+        }
+        else
+        {
+            RevertState();
+        }
     }
+
 
     // Update is called once per frame
     void Update()

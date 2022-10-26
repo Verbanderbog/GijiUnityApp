@@ -1,0 +1,8 @@
+Rando NPC Character Art
+//DIALOG START//
+This is a line of dialog.
+0
+Happy
+This is another line of dialog.
+0
+Sad

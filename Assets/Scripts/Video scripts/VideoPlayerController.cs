@@ -14,6 +14,7 @@ public class VideoPlayerController : MonoBehaviour
     [SerializeField] private RawImage videoImage;
     [SerializeField] private TextMeshProUGUI title;
     [SerializeField] private TextMeshProUGUI timestamp;
+    [SerializeField] private Slider volume;
     [SerializeField] private Slider progress;
     [SerializeField] private GameObject playButton;
     [SerializeField] private GameObject pauseButton;
@@ -42,7 +43,7 @@ public class VideoPlayerController : MonoBehaviour
         videoPlayer = GetComponent<VideoPlayer>();
         audioPlayer = GetComponent<AudioSource>();
         progressScript = progress.GetComponent<VideoProgressBar>();
-        audioPlayer.volume = PlayerPrefs.GetInt("MusicVolume")/100.0F;
+        
         setTrack(playlistIndex);
     }
 
@@ -133,6 +134,8 @@ public class VideoPlayerController : MonoBehaviour
         if (JukeboxList != null)
             playlist = JukeboxList.playlist;
         title.SetText(playlist.tracks[playlistIndex].name);
+        volume.value = PlayerPrefs.GetFloat(volume.name);
+
     }
 
     public void changeTime(int delta)

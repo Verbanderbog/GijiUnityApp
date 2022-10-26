@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1542961806088541322}
   - component: {fileID: 1542961806088541321}
   - component: {fileID: 1542961806088541320}
+  - component: {fileID: 7279973009773038424}
   m_Layer: 7
   m_Name: NPC_test_0
   m_TagString: Untagged
@@ -35,7 +36,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1542961806088541324
 SpriteRenderer:
@@ -123,7 +124,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.004924774, y: -0.03939867}
+  m_Offset: {x: 0.004924774, y: -0.15}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -134,7 +135,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.89165354, y: 1.172626}
+  m_Size: {x: 0.89165354, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &1542961806088541322
 MonoBehaviour:
@@ -149,24 +150,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogs:
-  - lines:
-    - line: Hi I'm Rando.
-      participantIndex: 0
-      reaction: -1
-    - line: How are you?
-      participantIndex: 0
-      reaction: 1
-    - line: I've been feeling kinda sad lately.
-      participantIndex: -1
-      reaction: 2
-    - line: Very sad!
-      participantIndex: 0
-      reaction: 2
-    - line: And that makes me pretty angry.
-      participantIndex: 0
-      reaction: 3
-    participants:
-    - {fileID: 11400000, guid: 6f3e311e438128b4ebb4fcb0e0e26d43, type: 2}
+  - {fileID: 0}
+  dialogFiles: []
   dialogIndex: 0
   paths:
   - loop: 1
@@ -200,6 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7658b50e6b4ef824fbf272585c7af37f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  footsteps: {fileID: 11400000, guid: f816dced486dd6c419fef2c49054769c, type: 2}
   moveSpeed: 5
 --- !u!114 &1542961806088541320
 MonoBehaviour:
@@ -233,3 +219,119 @@ MonoBehaviour:
   - {fileID: 357897501, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
   - {fileID: -956081300, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
   - {fileID: 1140562470, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
+  slideDownSprites:
+  - {fileID: -833342459, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
+  - {fileID: 1918658392, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
+  - {fileID: 1293273931, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
+  - {fileID: -1440257660, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
+  slideUpSprites:
+  - {fileID: 1293273931, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
+  - {fileID: -1440257660, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
+  - {fileID: -833342459, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
+  - {fileID: 1918658392, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
+  slideRightSprites:
+  - {fileID: -1440257660, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
+  - {fileID: -833342459, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
+  - {fileID: 1918658392, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
+  - {fileID: 1293273931, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
+  slideLeftSprites:
+  - {fileID: 1918658392, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
+  - {fileID: 1293273931, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
+  - {fileID: -1440257660, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
+  - {fileID: -833342459, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
+--- !u!82 &7279973009773038424
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1542961806088541360}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 2884737633116999994, guid: 18c32a9f4d3d45d44a3d497fcdc0ae9e, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 6
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

@@ -37,4 +37,9 @@ public class SpriteAnimator
             timer -= framerate;
         }
     }
+
+    public bool atStartSprite()
+    {
+        return frames[currentFrame].Equals(frames[0]);
+    }
 }

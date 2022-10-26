@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class NPCController : MonoBehaviour, Interactable, ISavable
 {
     [SerializeField] List<Dialog> dialogs;
+    [SerializeField] List<TextAsset> dialogFiles;
     [SerializeField] int dialogIndex;
     [SerializeField] List<MovementPath> paths;
     [SerializeField] int currentPath;
@@ -31,12 +33,30 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
     void Awake()
     {
         character = GetComponent<Character>();
+        foreach (TextAsset t in dialogFiles)
+        {
+            var dialogStart = false;
+            string[] lines = t.text.Split('\n');
+            foreach (string s in lines)
+            {
+                if (s.Equals("//DIALOG START//"))
+                    dialogStart = true;
+                if (dialogStart)
+                {
+
+                }
+                else
+                {
+                    //CharacterDialogArtManager.Instance.Participants;
+                }
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (currentPath < 0 || (inDialog && paths[currentPath].blockedByDialog) )
+        if (currentPath < 0 || (inDialog && paths[currentPath].blockedByDialog) || GameController.Instance.State==(GameState.Menu | GameState.SceneSwitch))
             return;
         if (paths[currentPath].hasNext() && currentPathAction == null)
         {

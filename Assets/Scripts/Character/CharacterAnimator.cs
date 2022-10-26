@@ -18,6 +18,7 @@ public class CharacterAnimator : MonoBehaviour
     public float MoveY { get; set; }
     public bool IsMoving { get; set; }
     public bool OnIce { get; set; }
+    bool wasOnIce;
 
     SpriteAnimator walkDownAnim;
     SpriteAnimator walkUpAnim;
@@ -56,25 +57,53 @@ public class CharacterAnimator : MonoBehaviour
         var prevAnim = currentAnim;
         if (!OnIce)
         {
-            if (MoveX > 0)
+            if (wasOnIce)
             {
-                currentAnim = walkRightAnim;
+                if (currentAnim.atStartSprite())
+                {
+                    wasOnIce=false;
+                    if (MoveX > 0)
+                    {
+                        currentAnim = walkRightAnim;
+                    }
+                    else if (MoveX < 0)
+                    {
+                        currentAnim = walkLeftAnim;
+                    }
+                    else if (MoveY > 0)
+                    {
+                        currentAnim = walkUpAnim;
+                    }
+                    else if (MoveY < 0)
+                    {
+                        currentAnim = walkDownAnim;
+                    }
+                }
             }
-            else if (MoveX < 0)
+            else
             {
-                currentAnim = walkLeftAnim;
+                if (MoveX > 0)
+                {
+                    currentAnim = walkRightAnim;
+                }
+                else if (MoveX < 0)
+                {
+                    currentAnim = walkLeftAnim;
+                }
+                else if (MoveY > 0)
+                {
+                    currentAnim = walkUpAnim;
+                }
+                else if (MoveY < 0)
+                {
+                    currentAnim = walkDownAnim;
+                }
             }
-            else if (MoveY > 0)
-            {
-                currentAnim = walkUpAnim;
-            }
-            else if (MoveY < 0)
-            {
-                currentAnim = walkDownAnim;
-            }
+            
         }
         else
         {
+            wasOnIce = true;
             if (MoveX > 0)
             {
                 currentAnim = slideRightAnim;
@@ -93,7 +122,7 @@ public class CharacterAnimator : MonoBehaviour
             }
         }
 
-        if (currentAnim != prevAnim || wasPreviouslyMoving != IsMoving)
+        if (currentAnim != prevAnim || (wasPreviouslyMoving != IsMoving && !OnIce) || (wasPreviouslyMoving != IsMoving && currentAnim.atStartSprite() && OnIce))
             currentAnim.Start();
 
         if (IsMoving)
@@ -102,7 +131,13 @@ public class CharacterAnimator : MonoBehaviour
         }
         else
         {
-            spriteRenderer.sprite = currentAnim.Frames[0];
+            if (!currentAnim.atStartSprite())
+                currentAnim.HandleUpdate();
+            else
+            {
+                spriteRenderer.sprite = currentAnim.Frames[0];
+            }
+                
         }
         wasPreviouslyMoving = IsMoving;
     }

@@ -17,7 +17,7 @@ public enum Reaction
 public class CharacterDialogArt : ScriptableObject
 {
     public string Name;
-    private static int reactions = Enum.GetNames(typeof(Reaction)).Length;
+    private static readonly int reactions = Enum.GetNames(typeof(Reaction)).Length;
     public Sprite[] images=new Sprite[reactions-1];
 
     private void OnValidate()

@@ -13,7 +13,14 @@ public class GameLayers : MonoBehaviour
     public static GameLayers i { get; set; }
     private void Awake()
     {
-        i = this;
+        if (i == null)
+        {
+            i = this;
+        }
+        else
+        {
+            DestroyImmediate(this);
+        }
     }
 
     public LayerMask SolidLayer
@@ -34,7 +41,7 @@ public class GameLayers : MonoBehaviour
     }
     public LayerMask TriggerableLayer
     {
-        get => grassLayer | portalLayer;
+        get => grassLayer | portalLayer ;
       
     }
     public LayerMask PortalLayer

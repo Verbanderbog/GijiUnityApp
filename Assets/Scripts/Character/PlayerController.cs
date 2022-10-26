@@ -13,7 +13,10 @@ public class PlayerController : MonoBehaviour, ISavable
     private Vector2 input;
 
     
+    
     private Character character;
+
+    public Character Character => character;
 
     private void Awake()
     {
@@ -53,14 +56,23 @@ public class PlayerController : MonoBehaviour, ISavable
 
     private void OnMoveOver()
     {
-
+        var colliders = Physics2D.OverlapCircleAll(transform.position - new Vector3(0, character.OffsetY), 0.2f, GameLayers.i.TriggerableLayer);
+        foreach (var collider in colliders)
+        {
+            var triggerable = collider.GetComponent<IPlayerTriggerable>();
+            if (triggerable != null)
+            {
+                triggerable.OnPlayerTriggered(this);
+                break;
+            }
+        }
     }
 
     void Interact()
     {
         var facingDir = new Vector3(character.Animator.MoveX, character.Animator.MoveY);
-        var interactPos = transform.position + facingDir;
-        var collider = Physics2D.OverlapCircle(interactPos, 0.3f, GameLayers.i.InteractableLayer);
+        var interactPos = transform.position - new Vector3(0, character.OffsetY) + facingDir;
+        var collider = Physics2D.OverlapCircle(interactPos, 0.2f, GameLayers.i.InteractableLayer);
         if (collider != null)
         {
             collider.GetComponent<Interactable>()?.Interact();
