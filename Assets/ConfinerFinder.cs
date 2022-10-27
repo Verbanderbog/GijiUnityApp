@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 public class ConfinerFinder : MonoBehaviour
 {
     private UnityAction<Scene, LoadSceneMode> findConfiner;
-    public static ConfinerFinder i;
+    public static ConfinerFinder i { get; private set; }
     private void Awake()
     {
         if (i == null)
@@ -31,7 +31,7 @@ public class ConfinerFinder : MonoBehaviour
         };
         SceneManager.sceneLoaded += findConfiner;
     }
-    public void unsubSceneLoad()
+    public void UnsubSceneLoad()
     {
         SceneManager.sceneLoaded -= findConfiner;
     }

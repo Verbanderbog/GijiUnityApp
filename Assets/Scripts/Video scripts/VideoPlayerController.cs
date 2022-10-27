@@ -29,7 +29,7 @@ public class VideoPlayerController : MonoBehaviour
     void Start()
     {
         
-        setTrack(playlistIndex);
+        SetTrack(playlistIndex);
     }
 
     private void OnValidate()
@@ -44,7 +44,7 @@ public class VideoPlayerController : MonoBehaviour
         audioPlayer = GetComponent<AudioSource>();
         progressScript = progress.GetComponent<VideoProgressBar>();
         
-        setTrack(playlistIndex);
+        SetTrack(playlistIndex);
     }
 
     // Update is called once per frame
@@ -56,12 +56,12 @@ public class VideoPlayerController : MonoBehaviour
             {
                 if (autoplay.isOn) 
                 {
-                    skip();
+                    Skip();
                     return;
                 }
                 
             }
-            timestamp.SetText(getStamp(videoPlayer.time) + " / " + getStamp(videoPlayer.length));
+            timestamp.SetText(GetStamp(videoPlayer.time) + " / " + GetStamp(videoPlayer.length));
             if (!progressScript.InRect)
             {
                 if (videoPlayer.isPlaying)
@@ -87,7 +87,7 @@ public class VideoPlayerController : MonoBehaviour
             {
                 if (autoplay.isOn)
                 {
-                    skip();
+                    Skip();
                     return;
                 } else
                 {
@@ -98,7 +98,7 @@ public class VideoPlayerController : MonoBehaviour
                 
             }
 
-            timestamp.SetText(getStamp(audioPlayer.time) + " / " + getStamp(audioPlayer.clip.length));
+            timestamp.SetText(GetStamp(audioPlayer.time) + " / " + GetStamp(audioPlayer.clip.length));
             if (!progressScript.InRect)
             {
                 if (audioPlayer.isPlaying)
@@ -123,7 +123,7 @@ public class VideoPlayerController : MonoBehaviour
     }
 
 
-    private string getStamp(double seconds)
+    private string GetStamp(double seconds)
     {
 
         return String.Format("{0:D}:{1:D2}", (int)(seconds / 60), (int)(seconds % 60));
@@ -138,7 +138,7 @@ public class VideoPlayerController : MonoBehaviour
 
     }
 
-    public void changeTime(int delta)
+    public void ChangeTime(int delta)
     {
         if (playlist.tracks[playlistIndex].trackType == Track.TrackType.Video)
         {
@@ -147,7 +147,7 @@ public class VideoPlayerController : MonoBehaviour
             {
                 if (autoplay.isOn)
                 {
-                    skip();
+                    Skip();
                     return;
                 }
                     videoPlayer.time = videoPlayer.length-0.05F;
@@ -168,7 +168,7 @@ public class VideoPlayerController : MonoBehaviour
             {
                 if (autoplay.isOn)
                 {
-                    skip();
+                    Skip();
                     return;
                 }
                 audioPlayer.time = audioPlayer.clip.length - 0.05F;
@@ -186,21 +186,21 @@ public class VideoPlayerController : MonoBehaviour
 
     }
 
-    public void skip()
+    public void Skip()
     {
         if (++playlistIndex > playlist.tracks.Length - 1)
             playlistIndex = 0;
-        setTrack(playlistIndex);
+        SetTrack(playlistIndex);
     }
 
-    public void back()
+    public void Back()
     {
         if (--playlistIndex < 0)
             playlistIndex = playlist.tracks.Length - 1;
-        setTrack(playlistIndex);
+        SetTrack(playlistIndex);
     }
 
-    public void setTrack(int index)
+    public void SetTrack(int index)
     {
         restart = false;
         bool isPlaying = (videoPlayer.clip!=null) ? videoPlayer.isPlaying : audioPlayer.isPlaying;
@@ -241,7 +241,7 @@ public class VideoPlayerController : MonoBehaviour
 
     }
 
-    public void play()
+    public void Play()
     {
         if (playlist.tracks[playlistIndex].trackType == Track.TrackType.Video)
         {
@@ -262,7 +262,7 @@ public class VideoPlayerController : MonoBehaviour
         }
     }
 
-    public void pause()
+    public void Pause()
     {
         if (playlist.tracks[playlistIndex].trackType == Track.TrackType.Video)
         {

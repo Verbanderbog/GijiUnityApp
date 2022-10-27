@@ -47,16 +47,15 @@ public class VideoProgressBar : MonoBehaviour, IDragHandler, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Vector2 localPoint;
-
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(bar.rectTransform, eventData.position, null, out localPoint))
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(bar.rectTransform, eventData.position, null, out _))
         {
             InRect = true;
             if (videoPlayer.clip != null)
             {
                 playState = videoPlayer.isPlaying;
                 videoPlayer.Pause();
-            } else
+            }
+            else
             {
                 playState = audioPlayer.isPlaying;
                 audioPlayer.Pause();
@@ -84,16 +83,15 @@ public class VideoProgressBar : MonoBehaviour, IDragHandler, IPointerDownHandler
         }
     }
 
-    private void TrySkip(PointerEventData eventData)
+    /*private void TrySkip(PointerEventData eventData)
     {
-        Vector2 localPoint;
 
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(bar.rectTransform, eventData.position, null, out localPoint))
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(bar.rectTransform, eventData.position, null, out Vector2 localPoint))
         {
             float pct = Mathf.InverseLerp(bar.rectTransform.rect.xMin, bar.rectTransform.rect.xMax, localPoint.x);
             SkipToPercent(progress.value);
         }
-    }
+    }*/
 
     private void SkipToPercent(float pct)
     {

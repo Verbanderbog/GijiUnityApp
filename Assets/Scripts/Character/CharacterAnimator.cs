@@ -59,7 +59,7 @@ public class CharacterAnimator : MonoBehaviour
         {
             if (wasOnIce)
             {
-                if (currentAnim.atStartSprite())
+                if (currentAnim.AtStartSprite())
                 {
                     wasOnIce=false;
                     if (MoveX > 0)
@@ -122,7 +122,7 @@ public class CharacterAnimator : MonoBehaviour
             }
         }
 
-        if (currentAnim != prevAnim || (wasPreviouslyMoving != IsMoving && !OnIce) || (wasPreviouslyMoving != IsMoving && currentAnim.atStartSprite() && OnIce))
+        if (currentAnim != prevAnim || (wasPreviouslyMoving != IsMoving && !OnIce) || (wasPreviouslyMoving != IsMoving && currentAnim.AtStartSprite() && OnIce))
             currentAnim.Start();
 
         if (IsMoving)
@@ -131,7 +131,7 @@ public class CharacterAnimator : MonoBehaviour
         }
         else
         {
-            if (!currentAnim.atStartSprite())
+            if (!currentAnim.AtStartSprite())
                 currentAnim.HandleUpdate();
             else
             {

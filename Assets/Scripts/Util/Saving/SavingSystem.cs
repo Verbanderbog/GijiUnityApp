@@ -14,7 +14,7 @@ public class SavingSystem : MonoBehaviour
         i = this;
     }
 
-    Dictionary<string, object> gameState = new Dictionary<string, object>();
+    Dictionary<string, object> gameState = new();
 
     public void CaptureEntityStates(List<SavableEntity> savableEntities)
     {
@@ -76,12 +76,10 @@ public class SavingSystem : MonoBehaviour
         string path = GetPath(saveFile);
         print($"saving to {path}");
 
-        using (FileStream fs = File.Open(path, FileMode.Create))
-        {
-            // Serialize our object
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            binaryFormatter.Serialize(fs, state);
-        }
+        using FileStream fs = File.Open(path, FileMode.Create);
+        // Serialize our object
+        BinaryFormatter binaryFormatter = new();
+        binaryFormatter.Serialize(fs, state);
     }
 
     Dictionary<string, object> LoadFile(string saveFile)
@@ -90,12 +88,10 @@ public class SavingSystem : MonoBehaviour
         if (!File.Exists(path))
             return new Dictionary<string, object>();
 
-        using (FileStream fs = File.Open(path, FileMode.Open))
-        {
-            // Deserialize our object
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            return (Dictionary<string, object>)binaryFormatter.Deserialize(fs);
-        }
+        using FileStream fs = File.Open(path, FileMode.Open);
+        // Deserialize our object
+        BinaryFormatter binaryFormatter = new();
+        return (Dictionary<string, object>)binaryFormatter.Deserialize(fs);
     }
 
     private string GetPath(string saveFile)

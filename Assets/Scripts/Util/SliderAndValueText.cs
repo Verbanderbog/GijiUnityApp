@@ -8,7 +8,7 @@ public class SliderAndValueText
     public Slider slider;
     public TextMeshProUGUI text;
     
-    public void setText()
+    public void SetText()
     {
         if (text != null)
         {

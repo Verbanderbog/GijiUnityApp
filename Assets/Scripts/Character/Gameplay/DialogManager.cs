@@ -12,7 +12,7 @@ public class DialogManager : MonoBehaviour
     [SerializeField] GameObject dialogContainer;
     [SerializeField] TextMeshProUGUI dialogText;
     [SerializeField] Image dialogReaction;
-
+    int textSpeed=50;
 
     Gamepad gamepad;
 
@@ -42,6 +42,7 @@ public class DialogManager : MonoBehaviour
 
     public IEnumerator ShowDialog(Dialog dialog, Action onDialogFinished=null)
     {
+        UpdateTextSpeed();
         if (gamepad == null)
             gamepad = Gamepad.current;
         this.onDialogFinished = onDialogFinished;
@@ -67,7 +68,11 @@ public class DialogManager : MonoBehaviour
 
     }
 
-
+    public void UpdateTextSpeed()
+    {
+        var temp = PlayerPrefs.GetInt("Text Speed");
+        textSpeed = (temp != 0) ? temp : 50;
+    }
 
     public IEnumerator TypeDialog(string line)
     {
@@ -83,7 +88,7 @@ public class DialogManager : MonoBehaviour
             }
             dialogText.text += letter;
             float speedMultiplier = (gamepad.buttonSouth.isPressed) ? 2f: 1f;
-            yield return new WaitForSeconds(1f / ((PlayerPrefs.GetInt("Text Speed") != 0) ? PlayerPrefs.GetInt("Text Speed") * speedMultiplier : 50f * speedMultiplier));
+            yield return new WaitForSeconds(1f / textSpeed * speedMultiplier);
         }
         isTyping = false;
 

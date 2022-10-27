@@ -12,7 +12,7 @@ public class EssentialObjects : MonoBehaviour
     public void Quit()
     {
         
-        ConfinerFinder.i.unsubSceneLoad();
+        ConfinerFinder.i.UnsubSceneLoad();
         SceneManager.LoadScene(0);
         DestroyImmediate(gameObject);
     }

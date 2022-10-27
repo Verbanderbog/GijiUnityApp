@@ -28,9 +28,4 @@ public class MenuFontSizer : MonoBehaviour
         OptimiseTextSizes();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

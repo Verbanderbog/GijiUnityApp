@@ -19,16 +19,10 @@ public class TrackPanelUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        initialize();
+        Initialize();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void initialize()
+    public void Initialize()
     {
         if (track != null)
         {
@@ -39,17 +33,17 @@ public class TrackPanelUI : MonoBehaviour
             trackAuthorAlbum.SetText(track.author.name + album);
             var featuring = (track.featuring != null) ? "(ft. " + track.featuring.name + ")" : "";
             trackFeaturing.SetText(featuring);
-            this.gameObject.GetComponent<Button>().onClick.AddListener(play);
+            this.gameObject.GetComponent<Button>().onClick.AddListener(Play);
         }
     }
 
-    public void play()
+    public void Play()
     {
         jukeboxMenu.SetActive(false);
         videoPlayerPanel.SetActive(true);
         playerController.playlistIndex = trackIndex;
-        playerController.setTrack(trackIndex);
-        playerController.play();
+        playerController.SetTrack(trackIndex);
+        playerController.Play();
 
     }
 }

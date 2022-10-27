@@ -23,9 +23,9 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
     public void Interact()
     {
         inDialog = true;
-        StartCoroutine(DialogManager.Instance.ShowDialog(dialogs[dialogIndex], onDialogFinished));
+        StartCoroutine(DialogManager.Instance.ShowDialog(dialogs[dialogIndex], OnDialogFinished));
     }
-    private void onDialogFinished()
+    private void OnDialogFinished()
     {
         inDialog = false;
     }

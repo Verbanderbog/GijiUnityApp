@@ -10,10 +10,6 @@ public class JukeboxList : MonoBehaviour
     public VideoPlayerController playerController;
     public GameObject videoPlayerPanel;
     public GameObject jukeboxMenu;
-    private void OnValidate()
-    {
-        
-    }
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +30,7 @@ public class JukeboxList : MonoBehaviour
             trackUI.playerController = playerController;
             trackUI.videoPlayerPanel = videoPlayerPanel;
             trackUI.jukeboxMenu = jukeboxMenu;
-            trackUI.initialize();
+            trackUI.Initialize();
         }
         /*foreach (Album album in playlist.AlbumContents.Keys)
         {
@@ -58,8 +54,5 @@ public class JukeboxList : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

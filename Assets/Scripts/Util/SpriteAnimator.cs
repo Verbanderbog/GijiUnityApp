@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SpriteAnimator
 {
-    SpriteRenderer spriteRenderer;
-    List<Sprite> frames;
+    readonly SpriteRenderer spriteRenderer;
+    readonly List<Sprite> frames;
     float framerate;
 
     int currentFrame;
@@ -38,7 +38,7 @@ public class SpriteAnimator
         }
     }
 
-    public bool atStartSprite()
+    public bool AtStartSprite()
     {
         return frames[currentFrame].Equals(frames[0]);
     }

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class AudioController : MonoBehaviour
 {
-    public static AudioController i;
+    public static AudioController i { get; private set; }
     public AudioMixer _MasterMixer;
 
     // Start is called before the first frame update

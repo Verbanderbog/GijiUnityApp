@@ -8,7 +8,7 @@ public class Playlist : ScriptableObject
 {
     public Track[] tracks;
     public bool sorted;
-    private SortedDictionary<Album, Dictionary<Track.TrackType, List<Track>>> albumContents = new SortedDictionary<Album, Dictionary<Track.TrackType, List<Track>>>();
+    private SortedDictionary<Album, Dictionary<Track.TrackType, List<Track>>> albumContents = new();
 
     public SortedDictionary<Album, Dictionary<Track.TrackType, List<Track>>> AlbumContents { get => albumContents; }
 
