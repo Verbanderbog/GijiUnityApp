@@ -56,7 +56,12 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
     // Update is called once per frame
     void Update()
     {
-        if (currentPath < 0 || (inDialog && paths[currentPath].blockedByDialog) || GameController.Instance.State==(GameState.Menu | GameState.SceneSwitch))
+        if (paths.Count == 0)
+        {
+            character.HandleUpdate();
+            return;
+        }
+        if (currentPath < 0 || (inDialog && paths[currentPath].blockedByDialog) || GameController.i.State==(GameState.Menu | GameState.SceneSwitch))
             return;
         if (paths[currentPath].hasNext() && currentPathAction == null)
         {

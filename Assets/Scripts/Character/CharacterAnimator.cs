@@ -9,6 +9,11 @@ public class CharacterAnimator : MonoBehaviour
     [SerializeField] List<Sprite> walkRightSprites;
     [SerializeField] List<Sprite> walkLeftSprites;
 
+    [SerializeField] List<Sprite> idleDownSprites;
+    [SerializeField] List<Sprite> idleUpSprites;
+    [SerializeField] List<Sprite> idleRightSprites;
+    [SerializeField] List<Sprite> idleLeftSprites;
+
     [SerializeField] List<Sprite> slideDownSprites;
     [SerializeField] List<Sprite> slideUpSprites;
     [SerializeField] List<Sprite> slideRightSprites;
@@ -18,19 +23,14 @@ public class CharacterAnimator : MonoBehaviour
     public float MoveY { get; set; }
     public bool IsMoving { get; set; }
     public bool OnIce { get; set; }
+    [SerializeField] bool directionalIdle;
     bool wasOnIce;
 
-    SpriteAnimator walkDownAnim;
-    SpriteAnimator walkUpAnim;
-    SpriteAnimator walkRightAnim;
-    SpriteAnimator walkLeftAnim;
+    Dictionary<string, SpriteAnimator> animations;
 
-    SpriteAnimator slideRightAnim;
-    SpriteAnimator slideLeftAnim;
-    SpriteAnimator slideUpAnim;
-    SpriteAnimator slideDownAnim;
 
-    SpriteAnimator currentAnim;
+
+    public string currentAnim;
     bool wasPreviouslyMoving;
 
     SpriteRenderer spriteRenderer;
@@ -39,17 +39,48 @@ public class CharacterAnimator : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        walkDownAnim = new SpriteAnimator(walkDownSprites, spriteRenderer);
-        walkUpAnim = new SpriteAnimator(walkUpSprites, spriteRenderer);
-        walkRightAnim = new SpriteAnimator(walkRightSprites, spriteRenderer);
-        walkLeftAnim = new SpriteAnimator(walkLeftSprites, spriteRenderer);
+        animations = new Dictionary<string, SpriteAnimator>();
+        animations.Add("walkDownAnim", new SpriteAnimator(walkDownSprites, spriteRenderer));
+        animations.Add("walkUpAnim", new SpriteAnimator(walkUpSprites, spriteRenderer));
+        animations.Add("walkRightAnim", new SpriteAnimator(walkRightSprites, spriteRenderer));
+        animations.Add("walkLeftAnim", new SpriteAnimator(walkLeftSprites, spriteRenderer));
 
-        slideDownAnim = new SpriteAnimator(slideDownSprites, spriteRenderer, 0.08f);
-        slideUpAnim = new SpriteAnimator(slideUpSprites, spriteRenderer, 0.08f);
-        slideRightAnim = new SpriteAnimator(slideRightSprites, spriteRenderer, 0.08f);
-        slideLeftAnim = new SpriteAnimator(slideLeftSprites, spriteRenderer,0.08f);
+        if (idleDownSprites.Count==0){
+            idleDownSprites.Add(walkDownSprites[0]);
+        }
+        if (directionalIdle){
+            if (idleRightSprites.Count==0){
+                idleRightSprites.Add(walkRightSprites[0]);
+            }
+            if (idleLeftSprites.Count==0){
+                idleLeftSprites.Add(walkLeftSprites[0]);
+            }
+            if (idleUpSprites.Count==0){
+                idleUpSprites.Add(walkUpSprites[0]);
+            }
+        }else{
+            if (idleRightSprites.Count==0){
+                idleRightSprites.AddRange(idleDownSprites);
+            }
+            if (idleLeftSprites.Count==0){
+                idleLeftSprites.AddRange(idleDownSprites);
+            }
+            if (idleUpSprites.Count==0){
+                idleUpSprites.AddRange(idleDownSprites);
+            }
+        }
+        
+        animations.Add("idleDownAnim", new SpriteAnimator(idleDownSprites, spriteRenderer));
+        animations.Add("idleUpAnim", new SpriteAnimator(idleUpSprites, spriteRenderer));
+        animations.Add("idleRightAnim", new SpriteAnimator(idleRightSprites, spriteRenderer));
+        animations.Add("idleLeftAnim", new SpriteAnimator(idleLeftSprites, spriteRenderer));
 
-        currentAnim = walkDownAnim;
+        animations.Add("slideDownAnim", new SpriteAnimator(slideDownSprites, spriteRenderer, 0.08f));
+        animations.Add("slideUpAnim", new SpriteAnimator(slideUpSprites, spriteRenderer, 0.08f));
+        animations.Add("slideRightAnim", new SpriteAnimator(slideRightSprites, spriteRenderer, 0.08f));
+        animations.Add("slideLeftAnim", new SpriteAnimator(slideLeftSprites, spriteRenderer,0.08f));
+
+        currentAnim = "idleDownAnim";
     }
 
     private void Update()
@@ -59,24 +90,24 @@ public class CharacterAnimator : MonoBehaviour
         {
             if (wasOnIce)
             {
-                if (currentAnim.AtStartSprite())
+                if (animations[currentAnim].AtStartSprite())
                 {
                     wasOnIce=false;
                     if (MoveX > 0)
                     {
-                        currentAnim = walkRightAnim;
+                        currentAnim = "walkRightAnim";
                     }
                     else if (MoveX < 0)
                     {
-                        currentAnim = walkLeftAnim;
+                        currentAnim = "walkLeftAnim";
                     }
                     else if (MoveY > 0)
                     {
-                        currentAnim = walkUpAnim;
+                        currentAnim = "walkUpAnim";
                     }
                     else if (MoveY < 0)
                     {
-                        currentAnim = walkDownAnim;
+                        currentAnim = "walkDownAnim";
                     }
                 }
             }
@@ -84,19 +115,19 @@ public class CharacterAnimator : MonoBehaviour
             {
                 if (MoveX > 0)
                 {
-                    currentAnim = walkRightAnim;
+                    currentAnim = "walkRightAnim";
                 }
                 else if (MoveX < 0)
                 {
-                    currentAnim = walkLeftAnim;
+                    currentAnim = "walkLeftAnim";
                 }
                 else if (MoveY > 0)
                 {
-                    currentAnim = walkUpAnim;
+                    currentAnim = "walkUpAnim";
                 }
                 else if (MoveY < 0)
                 {
-                    currentAnim = walkDownAnim;
+                    currentAnim = "walkDownAnim";
                 }
             }
             
@@ -106,36 +137,59 @@ public class CharacterAnimator : MonoBehaviour
             wasOnIce = true;
             if (MoveX > 0)
             {
-                currentAnim = slideRightAnim;
+                currentAnim = "slideRightAnim";
             }
             else if (MoveX < 0)
             {
-                currentAnim = slideLeftAnim;
+                currentAnim = "slideLeftAnim";
             }
             else if (MoveY > 0)
             {
-                currentAnim = slideUpAnim;
+                currentAnim = "slideUpAnim";
             }
             else if (MoveY < 0)
             {
-                currentAnim = slideDownAnim;
+                currentAnim = "slideDownAnim";
             }
         }
 
-        if (currentAnim != prevAnim || (wasPreviouslyMoving != IsMoving && !OnIce) || (wasPreviouslyMoving != IsMoving && currentAnim.AtStartSprite() && OnIce))
-            currentAnim.Start();
+        if (currentAnim != prevAnim || (wasPreviouslyMoving != IsMoving && !OnIce) || (wasPreviouslyMoving != IsMoving && animations[currentAnim].AtStartSprite() && OnIce))
+            animations[currentAnim].Start();
 
         if (IsMoving)
         {
-            currentAnim.HandleUpdate();
+            animations[currentAnim].HandleUpdate();
         }
         else
         {
-            if (!currentAnim.AtStartSprite())
-                currentAnim.HandleUpdate();
+            if (!animations[currentAnim].AtStartSprite())
+                animations[currentAnim].HandleUpdate();
             else
             {
-                spriteRenderer.sprite = currentAnim.Frames[0];
+                //spriteRenderer.sprite = animations[currentAnim].Frames[0];
+                if (currentAnim == "walkUpAnim" || currentAnim == "slideUpAnim")
+                {
+                    currentAnim = "idleUpAnim";
+                    animations[currentAnim].Start();
+                }
+                else if (currentAnim == "walkRightAnim" || currentAnim == "slideRightAnim")
+                {
+                    currentAnim = "idleRightAnim";
+                    animations[currentAnim].Start();
+
+                }
+                else if (currentAnim == "walkLeftAnim" || currentAnim == "slideLeftAnim")
+                {
+                    currentAnim = "idleLeftAnim";
+                    animations[currentAnim].Start();
+                }
+                else if (currentAnim == "walkDownAnim" || currentAnim == "slideDownAnim")
+                {
+                    currentAnim = "idleDownAnim";
+                    animations[currentAnim].Start();
+                }
+                
+                animations[currentAnim].HandleUpdate();
             }
                 
         }

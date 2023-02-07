@@ -2,35 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-/*
+
 #if UNITY_EDITOR
 using UnityEditor;
 
 [CreateAssetMenu(fileName = "New Terrain Tile", menuName = "Tiles/TerrainTile")]
-*/
-public class TerrainTile : Tile
+#endif
+public class TerrainTile : RuleTile<TerrainTile.Neighbor>
 {
+    public List<TileBase> Siblings = new List<TileBase>();
     public TileType tileType;
 
-/*
-    public override void RefreshTile(Vector3Int position, ITilemap tilemap)
+    public class Neighbor : RuleTile.TilingRule.Neighbor
     {
-        base.RefreshTile(position, tilemap);
+
     }
 
-    public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
+    public override bool RuleMatch(int neighbor, TileBase tile)
     {
-        base.GetTileData(position, tilemap, ref tileData);
-    }
-#if UNITY_EDITOR
-    [MenuItem("Assets/Create/2D/Custom Tiles/Terrain Tile")]
-    public static void CreateTerrainTile()
-    {
-        string path = EditorUtility.SaveFilePanelInProject("Save Terrain Tile","New Terrain Tile","Asset","Save Terrain Tile","Assets");
-        if (path == "") return;
+        switch (neighbor)
+        {
+            case Neighbor.This: return tile == this || Siblings.Contains(tile);
 
-        AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<TerrainTile>(), path);
+        }
+        return base.RuleMatch(neighbor, tile);
     }
-#endif
-    */
 }

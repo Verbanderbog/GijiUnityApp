@@ -10,6 +10,7 @@ public class ConfinerFinder : MonoBehaviour
 {
     private UnityAction<Scene, LoadSceneMode> findConfiner;
     public static ConfinerFinder i { get; private set; }
+    public CinemachineConfiner2D cine;
     private void Awake()
     {
         if (i == null)
@@ -20,12 +21,11 @@ public class ConfinerFinder : MonoBehaviour
         {
             DestroyImmediate(this);
         }
-        var cine = GetComponent<CinemachineConfiner2D>();
+        cine = GetComponent<CinemachineConfiner2D>();
         cine.InvalidateCache();
         cine.m_BoundingShape2D = FindObjectsOfType<Collider2D>().First(x=> x.name == "Confiner");
         findConfiner = (scene, mode) =>
         {
-            var cine = GetComponent<CinemachineConfiner2D>();
             cine.InvalidateCache();
             cine.m_BoundingShape2D = FindObjectsOfType<Collider2D>().First(x => x.name == "Confiner");
         };

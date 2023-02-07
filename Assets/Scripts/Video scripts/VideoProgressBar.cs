@@ -7,7 +7,7 @@ public class VideoProgressBar : MonoBehaviour, IDragHandler, IPointerDownHandler
 {
     [SerializeField] private VideoPlayer videoPlayer;
     [SerializeField] private AudioSource audioPlayer;
-    [SerializeField] private FadeUI panel;
+    [SerializeField] private FadeVideoUI panel;
     private Slider progress;
     [SerializeField] private Image bar;
     private bool inRect;

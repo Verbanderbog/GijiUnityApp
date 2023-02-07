@@ -25,7 +25,7 @@ public class GameMenuController : MonoBehaviour
         if (gamepad.buttonEast.wasPressedThisFrame)
         {
             menu.SetActive(false);
-            GameController.Instance.MenuState(false);
+            GameController.i.MenuState(false);
         }
         else
         {

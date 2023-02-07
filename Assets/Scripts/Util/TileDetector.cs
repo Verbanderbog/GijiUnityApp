@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
+using System.Linq;
 
 public enum TileType { Empty, Grass, Ice, Snow }
 public class TileDetector : MonoBehaviour
@@ -45,6 +47,13 @@ public class TileDetector : MonoBehaviour
         else
             return TileType.Empty;
 
+    }
+
+    public void SetTilemap(SceneDetails sceneDetails)
+    {
+        Scene s = SceneManager.GetSceneByName(sceneDetails.name);
+        GameObject[] go = s.GetRootGameObjects();
+        tilemap = go[0].transform.GetChild(0).GetChild(0).GetComponent<Tilemap>();
     }
 
 }

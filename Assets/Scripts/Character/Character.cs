@@ -10,7 +10,7 @@ public class Character : MonoBehaviour
     AudioSource audioSource;
     [SerializeField] FootstepSounds footsteps;
     public float moveSpeed;
-    public float OffsetY { get; private set; } = 0.3f;
+    public float OffsetY = 0.3f;
     public CharacterAnimator Animator { get => animator; }
     public bool IsMoving { get; private set; }
     public bool OnIce { get; private set; }
@@ -122,7 +122,6 @@ public class Character : MonoBehaviour
         IsMoving = false;
         if (Math.Abs(moveVec.x) >= 1 || Math.Abs(moveVec.y) >= 1)
         {
-
             OnMoveOver?.Invoke();
         }
 
@@ -136,12 +135,8 @@ public class Character : MonoBehaviour
         transform.position = pos;
     }
 
-    private bool IsPathClear(Vector3 targetPos)
-    {
-        var diff = targetPos - transform.position;
-        var dir = diff.normalized;
-        return !Physics2D.BoxCast(transform.position + dir, new Vector2(0.2f, 0.2f), 0f, dir, diff.magnitude - 1, GameLayers.i.SolidLayer | GameLayers.i.InteractableLayer | GameLayers.i.PlayerLayer);
-    }
+
+
     private bool[] IsWalkable(Vector3 targetPos)
     {
         targetPos.x = Mathf.Floor(targetPos.x) + 0.5f;

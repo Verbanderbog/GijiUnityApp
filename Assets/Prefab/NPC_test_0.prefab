@@ -207,7 +207,7 @@ MonoBehaviour:
   walkUpSprites:
   - {fileID: 1293273931, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
   - {fileID: -1915991980, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
-  - {fileID: 862752694, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
+  - {fileID: -1915991980, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
   - {fileID: 646250090, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
   walkRightSprites:
   - {fileID: -1440257660, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
@@ -219,6 +219,10 @@ MonoBehaviour:
   - {fileID: 357897501, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
   - {fileID: -956081300, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
   - {fileID: 1140562470, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
+  idleDownSprites: []
+  idleUpSprites: []
+  idleRightSprites: []
+  idleLeftSprites: []
   slideDownSprites:
   - {fileID: -833342459, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
   - {fileID: 1918658392, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
@@ -239,6 +243,8 @@ MonoBehaviour:
   - {fileID: 1293273931, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
   - {fileID: -1440257660, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
   - {fileID: -833342459, guid: 6a4124e42e73a4040a433fd9ec558fdb, type: 3}
+  directionalIdle: 1
+  currentAnim: 
 --- !u!82 &7279973009773038424
 AudioSource:
   m_ObjectHideFlags: 0

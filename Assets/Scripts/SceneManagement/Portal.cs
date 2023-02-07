@@ -26,14 +26,27 @@ public class Portal : MonoBehaviour, IPlayerTriggerable
     IEnumerator SwitchScene()
     {
         DontDestroyOnLoad(gameObject);
-        GameController.Instance.SceneState(true);
-        yield return SceneManager.LoadSceneAsync(sceneToLoad);
+        GameController.i.SceneState(true);
+        yield return GameController.i.BlackScreen.FadeIn(0.5f);
+        if (SceneManager.sceneCountInBuildSettings != sceneToLoad)
+            yield return SceneManager.LoadSceneAsync(sceneToLoad);
         var destPortal = FindObjectsOfType<Portal>().First(x => x!= this && this.targetPortal == x.portalID);
-        var pos = (offsetSpawn) ? destPortal.SpawnPoint.position + (player.transform.position - this.transform.position) : destPortal.SpawnPoint.position;
+        var pos = (offsetSpawn) ? destPortal.transform.position + (player.transform.position - this.transform.position) : destPortal.transform.position;
         player.Character.SetPostitionAndSnapToTile(pos);
-        GameController.Instance.SceneState(false);
+        pos = destPortal.SpawnPoint.position - destPortal.transform.position;
+        StartCoroutine(player.Character.Move(pos));
+        yield return GameController.i.BlackScreen.FadeOut(0.5f);
+        GameController.i.SceneState(false);
         Destroy(gameObject);
     }
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        var pos = transform.position;
+        pos.x = Mathf.Floor(pos.x) + 0.5f;
+        pos.y = Mathf.Floor(pos.y) + 0.5f;
 
-
+        transform.position = pos;
+    }
+#endif
 }

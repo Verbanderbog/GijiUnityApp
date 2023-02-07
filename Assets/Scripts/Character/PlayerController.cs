@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
+
 public class PlayerController : MonoBehaviour, ISavable
 {
 
@@ -12,8 +14,9 @@ public class PlayerController : MonoBehaviour, ISavable
 
     private Vector2 input;
 
-    
-    
+    IEnumerator movementRoutine;
+
+
     private Character character;
 
     public Character Character => character;
@@ -45,7 +48,8 @@ public class PlayerController : MonoBehaviour, ISavable
             
             if (input != Vector2.zero)
             {
-                StartCoroutine(character.Move(input, OnMoveOver));
+                movementRoutine = character.Move(input, OnMoveOver);
+                StartCoroutine(movementRoutine);
             }
         }
         character.HandleUpdate();
@@ -81,13 +85,31 @@ public class PlayerController : MonoBehaviour, ISavable
 
     public object CaptureState()
     {
-        throw new System.NotImplementedException();
+        return new PlayerSave(transform.position.x, transform.position.y, character.Animator.currentAnim);
     }
 
     public void RestoreState(object state)
     {
-        throw new System.NotImplementedException();
+        PlayerSave save = (PlayerSave)state;
+        transform.position = new Vector3(save.x, save.y);
+        character.Animator.currentAnim = save.currentAnim;
     }
+}
+
+[System.Serializable]
+struct PlayerSave
+{
+    public readonly float x;
+    public readonly float y;
+    public readonly string currentAnim;
+
+    public PlayerSave(float x, float y, string currentAnim)
+    {
+        this.x = x;
+        this.y = y;
+        this.currentAnim = currentAnim;
+    }
+
 }
 
 
