@@ -20,7 +20,11 @@ public class DialogManager : MonoBehaviour
     public event Action OnCloseDialog;
 
     //public bool IsShowing { get; private set; }
-
+    Action onDialogFinished;
+    Dialog dialog;
+    int currentLine = 0;
+    bool isTyping = false;
+    bool endTyping = false;
     public static DialogManager Instance { get; private set; }
     private void Awake()
     {
@@ -34,11 +38,7 @@ public class DialogManager : MonoBehaviour
         }
         gamepad = Gamepad.current;
     }
-    Action onDialogFinished;
-    Dialog dialog;
-    int currentLine = 0;
-    bool isTyping = false;
-    bool endTyping = false;
+    
 
     public IEnumerator ShowDialog(Dialog dialog, Action onDialogFinished=null)
     {

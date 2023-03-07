@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,9 +9,10 @@ public enum GameState { FreeRoam, Dialog, Menu, SceneSwitch}
 public class GameController : MonoBehaviour
 {
 
-    [SerializeField] PlayerController playerController;
+    public PlayerController playerController;
     GameMenuController gameMenuController;
     [SerializeField] FadeImage blackScreen;
+    
     public static GameController i { get; private set; }
 
     public HashSet<SceneDetails> loadedScenes;
@@ -31,11 +33,14 @@ public class GameController : MonoBehaviour
         {
             DestroyImmediate(this);
         }
+        state = GameState.FreeRoam;
         loadedScenes = new HashSet<SceneDetails>();
         gameMenuController = GetComponent<GameMenuController>();
         previousStates = new List<GameState>();
         DialogManager.Instance.OnShowDialog += () =>
         {
+            ButtonContextController.i.ApplyContext("Next");
+            ButtonContextController.i.ApplyContext("Skip");
             previousStates.Add(state);
             state = GameState.Dialog;
         };
@@ -47,19 +52,21 @@ public class GameController : MonoBehaviour
 
     }
 
-    
 
     void RevertState()
     {
-        state = previousStates[previousStates.Count-1];
+        state = previousStates[^1];
         previousStates.RemoveAt(previousStates.Count - 1);
-        
+        ButtonContextController.i.ApplyContext("Gi");
+        ButtonContextController.i.ApplyContext("Ji");
     }
 
     public void MenuState(bool menu)
     {
          if (menu)
         {
+            ButtonContextController.i.ApplyContext("Back");
+            ButtonContextController.i.ApplyContext("Select");
             previousStates.Add(state);
             state = GameState.Menu;
         } else
@@ -85,7 +92,8 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(state == GameState.FreeRoam)
+        
+        if (state == GameState.FreeRoam)
         {
             playerController.HandleUpdate();
         }
@@ -101,5 +109,6 @@ public class GameController : MonoBehaviour
         {
             playerController.Character.HandleUpdate();
         }
+        
     }
 }

@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour, ISavable
 
     IEnumerator movementRoutine;
 
+    public Dictionary<string, Dictionary<int, Collectible>> collectibles = new();
 
     private Character character;
 
@@ -52,7 +53,9 @@ public class PlayerController : MonoBehaviour, ISavable
                 StartCoroutine(movementRoutine);
             }
         }
+        CheckInteract();
         character.HandleUpdate();
+        
         if (Input.GetKeyDown(KeyCode.Z) || gamepad.buttonSouth.wasPressedThisFrame)
             Interact();
     }
@@ -72,14 +75,31 @@ public class PlayerController : MonoBehaviour, ISavable
         }
     }
 
-    void Interact()
+    void CheckInteract()
     {
         var facingDir = new Vector3(character.Animator.MoveX, character.Animator.MoveY);
         var interactPos = transform.position - new Vector3(0, character.OffsetY) + facingDir;
         var collider = Physics2D.OverlapCircle(interactPos, 0.2f, GameLayers.i.InteractableLayer);
         if (collider != null)
         {
-            collider.GetComponent<Interactable>()?.Interact();
+            ButtonContextController.i.ApplyContext(collider.GetComponent<Interactable>()?.GetContextName());
+        }
+        else
+        {
+            ButtonContextController.i.UnapplyContext("Gi");
+        }
+        
+    }
+
+    void Interact()
+    {
+        Debug.Log("Interacting");
+        var facingDir = new Vector3(character.Animator.MoveX, character.Animator.MoveY);
+        var interactPos = transform.position - new Vector3(0, character.OffsetY) + facingDir;
+        var collider = Physics2D.OverlapCircle(interactPos, 0.2f, GameLayers.i.InteractableLayer);
+        if (collider != null)
+        {
+            collider.GetComponent<Interactable>()?.Interact(this);
         }
     }
 

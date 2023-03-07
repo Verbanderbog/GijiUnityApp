@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/StartingArea.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Area2.unity
+    path: Assets/Scenes/DogHouse.unity
     guid: 17ada77ecaf79a54bab0b9f89b7d4980
   - enabled: 1
     path: Assets/Scenes/Area3.unity
@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PondArea.unity
     guid: c944b52caa42023499c03d4a6326bb40
+  - enabled: 1
+    path: Assets/Scenes/SweetLand.unity
+    guid: 4b3b8e74445fcd2469749e951bb302b9
   m_configObjects: {}

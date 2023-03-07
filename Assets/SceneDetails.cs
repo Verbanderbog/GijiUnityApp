@@ -20,7 +20,7 @@ public class SceneDetails : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
             
             LoadScene(true);
@@ -39,7 +39,7 @@ public class SceneDetails : MonoBehaviour
             }
             
         }
-        if (collision.tag == "MainCamera")
+        if (collision.CompareTag("MainCamera"))
         {
 
 
@@ -92,8 +92,10 @@ public class SceneDetails : MonoBehaviour
 
     public bool ConnectedTo(string name)
     {
-        List<string> names= new List<string>();
-        names.Add(this.name);
+        List<string> names = new()
+        {
+            this.name
+        };
         foreach (var scene in connectedScenes)
         {
             names.Add(scene.name);
@@ -117,15 +119,15 @@ public class SceneDetails : MonoBehaviour
         var retGameObject = new GameObject(collider.name);
         Collider2D retCollider = (Collider2D)retGameObject.AddComponent(collider.GetType());
 
-        if (retCollider is BoxCollider2D)
+        if (retCollider is BoxCollider2D d)
         {
-            ((BoxCollider2D)retCollider).size = ((BoxCollider2D)collider).size;
-            ((BoxCollider2D)retCollider).offset = ((BoxCollider2D)collider).offset;
+            d.size = ((BoxCollider2D)collider).size;
+            d.offset = ((BoxCollider2D)collider).offset;
         }
-        else if (retCollider is PolygonCollider2D)
+        else if (retCollider is PolygonCollider2D d1)
         {
-            ((PolygonCollider2D)retCollider).offset = ((PolygonCollider2D)collider).offset;
-            ((PolygonCollider2D)retCollider).points = ((PolygonCollider2D)collider).points;
+            d1.offset = ((PolygonCollider2D)collider).offset;
+            d1.points = ((PolygonCollider2D)collider).points;
         }
         retCollider.transform.position = transform.position;
         retCollider.usedByComposite = true;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+
 public class NPCController : MonoBehaviour, Interactable, ISavable
 {
     [SerializeField] List<Dialog> dialogs;
@@ -11,6 +12,7 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
     [SerializeField] int dialogIndex;
     [SerializeField] List<MovementPath> paths;
     [SerializeField] int currentPath;
+    [SerializeField] NPCType type;
 
     bool inDialog;
     float idleTimer = 0f;
@@ -19,9 +21,12 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
     bool actionStarted = false;
 
     Character character;
+    private enum NPCType { Talking, Inspectable, Silent}
 
-    public void Interact()
+    public void Interact(PlayerController player)
     {
+        if (type == NPCType.Silent)
+            return;
         inDialog = true;
         StartCoroutine(DialogManager.Instance.ShowDialog(dialogs[dialogIndex], OnDialogFinished));
     }
@@ -118,6 +123,16 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
     {
         throw new NotImplementedException();
     }
+
+    string Interactable.GetContextName()
+    {
+        return type switch
+        {
+            NPCType.Talking => "Talk",
+            NPCType.Inspectable => "Inspect",
+            _ => "",
+        };
+    }
 }
 
-public enum NPCState { Idle, Walking }
+public enum NPCState { Idle, Walking, Sitting }

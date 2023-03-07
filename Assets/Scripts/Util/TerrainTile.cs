@@ -10,21 +10,24 @@ using UnityEditor;
 #endif
 public class TerrainTile : RuleTile<TerrainTile.Neighbor>
 {
-    public List<TileBase> Siblings = new List<TileBase>();
+    public List<TileBase> Siblings = new();
     public TileType tileType;
 
     public class Neighbor : RuleTile.TilingRule.Neighbor
     {
-
+        public const int Sibling = 3;
+        public const int Self = 4;
     }
 
     public override bool RuleMatch(int neighbor, TileBase tile)
     {
-        switch (neighbor)
+        return neighbor switch
         {
-            case Neighbor.This: return tile == this || Siblings.Contains(tile);
-
-        }
-        return base.RuleMatch(neighbor, tile);
+            Neighbor.This => tile == this || Siblings.Contains(tile),
+            Neighbor.NotThis => tile != this && !Siblings.Contains(tile),
+            Neighbor.Sibling => tile != this && Siblings.Contains(tile),
+            Neighbor.Self => tile == this,
+            _ => base.RuleMatch(neighbor, tile),
+        };
     }
 }

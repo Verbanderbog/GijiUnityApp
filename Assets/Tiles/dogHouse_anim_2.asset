@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
+  m_Name: dogHouse_anim_2
+  m_EditorClassIdentifier: 
+  m_AnimatedSprites:
+  - {fileID: 1748464211, guid: 557097365c7ac554d8bd63383b8b6b43, type: 3}
+  - {fileID: 124827708, guid: 557097365c7ac554d8bd63383b8b6b43, type: 3}
+  - {fileID: -2113703427, guid: 557097365c7ac554d8bd63383b8b6b43, type: 3}
+  - {fileID: -1468154818, guid: 557097365c7ac554d8bd63383b8b6b43, type: 3}
+  - {fileID: 1365224147, guid: 557097365c7ac554d8bd63383b8b6b43, type: 3}
+  - {fileID: 898438766, guid: 557097365c7ac554d8bd63383b8b6b43, type: 3}
+  - {fileID: 1184007751, guid: 557097365c7ac554d8bd63383b8b6b43, type: 3}
+  - {fileID: -150701532, guid: 557097365c7ac554d8bd63383b8b6b43, type: 3}
+  - {fileID: 1748464211, guid: 557097365c7ac554d8bd63383b8b6b43, type: 3}
+  m_MinSpeed: 4
+  m_MaxSpeed: 4
+  m_AnimationStartTime: 0
+  m_AnimationStartFrame: 0
+  m_TileColliderType: 1

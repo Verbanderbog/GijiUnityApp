@@ -9,6 +9,7 @@ public class GameLayers : MonoBehaviour
     [SerializeField] LayerMask grassLayer;
     [SerializeField] LayerMask playerLayer;
     [SerializeField] LayerMask portalLayer;
+    [SerializeField] LayerMask collectibleLayer;
 
     public static GameLayers i { get; set; }
     private void Awake()
@@ -41,7 +42,7 @@ public class GameLayers : MonoBehaviour
     }
     public LayerMask TriggerableLayer
     {
-        get => grassLayer | portalLayer ;
+        get => grassLayer | portalLayer | collectibleLayer;
       
     }
     public LayerMask PortalLayer

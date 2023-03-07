@@ -11,9 +11,12 @@ public class Character : MonoBehaviour
     [SerializeField] FootstepSounds footsteps;
     public float moveSpeed;
     public float OffsetY = 0.3f;
+    public bool AlwaysSlide;
+
     public CharacterAnimator Animator { get => animator; }
     public bool IsMoving { get; private set; }
     public bool OnIce { get; private set; }
+    
 
     private void Awake()
     {
@@ -25,6 +28,7 @@ public class Character : MonoBehaviour
     {
         animator.IsMoving = IsMoving;
         animator.OnIce = OnIce;
+        animator.AlwaysSlide = AlwaysSlide;
         if (IsMoving && !audioSource.isPlaying && audioSource.clip != null)
             audioSource.Play();
         else if (!IsMoving && audioSource.isPlaying)
@@ -39,14 +43,29 @@ public class Character : MonoBehaviour
         animator.MoveX = moveVec.x;
         animator.MoveY = moveVec.y;
 
-        moveVec.x = adjustInput(moveVec.x);
-        moveVec.y = adjustInput(moveVec.y);
+        moveVec.x = AdjustInput(moveVec.x);
+        moveVec.y = AdjustInput(moveVec.y);
 
         var targetPos = transform.position;
 
         var distance = Convert.ToInt32(moveVec.magnitude);
         Vector3 dir = moveVec.normalized;
-        var walkable = IsWalkable(transform.position + dir);
+        Vector3 positionAdjust;
+        if (dir.y != 0)
+        {
+            int height = animator.GetHeight();
+            positionAdjust = new Vector3(0, height-2, 0);
+        }
+        else if (dir.x!=0)
+        {
+            int width = animator.GetWidth();
+            positionAdjust = new Vector3(width-1, 0, 0);
+        } 
+        else
+        {
+            positionAdjust = Vector3.zero;
+        }
+        var walkable = IsWalkable(transform.position + positionAdjust + dir, dir);
         if (!walkable[0])
         {
             yield break;
@@ -54,7 +73,21 @@ public class Character : MonoBehaviour
         while (walkable[1])
         {
             yield return null;
-            walkable = IsWalkable(transform.position + dir);
+            if (dir.y != 0)
+            {
+                int height = animator.GetHeight();
+                positionAdjust = new Vector3(0, height - 2, 0);
+            }
+            else if (dir.x != 0)
+            {
+                int width = animator.GetWidth();
+                positionAdjust = new Vector3(width - 1, 0, 0);
+            }
+            else
+            {
+                positionAdjust = Vector3.zero;
+            }
+            walkable = IsWalkable(transform.position + positionAdjust + dir, dir);
         }
         IsMoving = true;
         for (int i = distance; i > 0; i--)
@@ -74,7 +107,7 @@ public class Character : MonoBehaviour
             }
             else
             {
-                if (OnIce)
+                if (OnIce || AlwaysSlide)
                 {
                     transform.position = prevPos;
                     breakWalking = true;
@@ -84,8 +117,26 @@ public class Character : MonoBehaviour
             while ((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-
-                walkable = IsWalkable(targetPos);
+                if (dir.y != 0)
+                {
+                    int height = animator.GetHeight();
+                    positionAdjust = new Vector3(0, height - 2, 0);
+                }
+                else if (dir.x != 0)
+                {
+                    int width = animator.GetWidth();
+                    positionAdjust = new Vector3(width - 1, 0, 0);
+                }
+                else
+                {
+                    positionAdjust = Vector3.zero;
+                }
+                walkable = IsWalkable(targetPos + positionAdjust, dir);
+                if (targetTile == TileType.Empty)
+                {
+                    //walkable[0] = false;
+                }
+                    
                 if (!walkable[0])
                 {
                     transform.position = prevPos;
@@ -96,7 +147,7 @@ public class Character : MonoBehaviour
                 {
                     IsMoving = false;
                     yield return null;
-                    walkable = IsWalkable(targetPos);
+                    walkable = IsWalkable(targetPos + positionAdjust, dir);
                     IsMoving = true;
 
                 }
@@ -105,16 +156,30 @@ public class Character : MonoBehaviour
             if (breakWalking)
                 break;
             transform.position = targetPos;
-            walkable = IsWalkable(transform.position + dir);
+            walkable = IsWalkable(transform.position + positionAdjust + dir, dir);
             if (!walkable[0])
             {
                 break;
             }
             while (walkable[1])
             {
+                if (dir.y != 0)
+                {
+                    int height = animator.GetHeight();
+                    positionAdjust = new Vector3(0, height - 2, 0);
+                }
+                else if (dir.x != 0)
+                {
+                    int width = animator.GetWidth();
+                    positionAdjust = new Vector3(width - 1, 0, 0);
+                }
+                else
+                {
+                    positionAdjust = Vector3.zero;
+                }
                 IsMoving = false;
                 yield return null;
-                walkable = IsWalkable(transform.position + dir);
+                walkable = IsWalkable(transform.position + positionAdjust + dir, dir);
                 IsMoving = true;
             }
         }
@@ -137,18 +202,20 @@ public class Character : MonoBehaviour
 
 
 
-    private bool[] IsWalkable(Vector3 targetPos)
+    private bool[] IsWalkable(Vector3 targetPos, Vector3 dir)
     {
-        targetPos.x = Mathf.Floor(targetPos.x) + 0.5f;
-        targetPos.y = Mathf.Floor(targetPos.y) + 0.5f;
-        var collisions = Physics2D.OverlapCircleAll(targetPos, 0.2f, GameLayers.i.SolidLayer | GameLayers.i.InteractableLayer | GameLayers.i.PlayerLayer);
+        targetPos.x = Mathf.Floor(targetPos.x)+0.5f;
+        targetPos.y = Mathf.Floor(targetPos.y - OffsetY) + 0.5f;
+        Vector3 bCorner = (dir.x != 0) ? new Vector3(0, animator.GetHeight() - 2, 0) : new Vector3(animator.GetWidth() - 1, 0, 0);
+        Collider2D[] collisions = Physics2D.OverlapAreaAll(targetPos, targetPos+bCorner, GameLayers.i.SolidLayer | GameLayers.i.InteractableLayer | GameLayers.i.PlayerLayer);
+        
         var playerCollide = false;
         var isNotSelf = false;
         if (collisions != null)
             foreach (Collider2D collision in collisions)
             {
                 var collisionIsNotSelf = collision.GetComponent<Character>() != this;
-                isNotSelf = (isNotSelf) ? true : collisionIsNotSelf;
+                isNotSelf = (isNotSelf) || collisionIsNotSelf;
                 playerCollide = (collisionIsNotSelf) ? GameLayers.i.PlayerLayer == (GameLayers.i.PlayerLayer | (1 << collision.gameObject.layer)): playerCollide;
             }
 
@@ -159,7 +226,7 @@ public class Character : MonoBehaviour
 
 
 
-    private float adjustInput(float input)
+    private float AdjustInput(float input)
     {
         if (input > .35f)
         {

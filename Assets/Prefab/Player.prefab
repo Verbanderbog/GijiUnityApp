@@ -34,7 +34,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5965356658117772880}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0.8, z: 0}
+  m_LocalPosition: {x: 0.593, y: 1.199, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: -748300555
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 98735547, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -90,7 +90,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &5965356658117772884
@@ -139,7 +139,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   footsteps: {fileID: 11400000, guid: f816dced486dd6c419fef2c49054769c, type: 2}
   moveSpeed: 5
-  OffsetY: 0
+  OffsetY: 0.6
+  AlwaysSlide: 0
 --- !u!61 &5965356657747399878
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -153,7 +154,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.4295018}
+  m_Offset: {x: -0.0044493377, y: -0.53776246}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -164,7 +165,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9, y: 0.8451387}
+  m_Size: {x: 0.7888852, y: 0.58798134}
   m_EdgeRadius: 0
 --- !u!82 &5965356657747399877
 AudioSource:
@@ -282,52 +283,90 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 257a784405233aa4d9f16b67843103cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkDownSprites:
-  - {fileID: 98735547, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
-  - {fileID: -185111212, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
-  - {fileID: 454633085, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
-  - {fileID: -2082396081, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
-  walkUpSprites:
-  - {fileID: -1284078238, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
-  - {fileID: 1569599227, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
-  - {fileID: -434263762, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
-  - {fileID: -1631786368, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
-  walkRightSprites:
-  - {fileID: -1428109517, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
-  - {fileID: 1162315671, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
-  - {fileID: 400848, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
-  - {fileID: -757911419, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
-  walkLeftSprites:
-  - {fileID: -1939117026, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
-  - {fileID: -1668828445, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
-  - {fileID: 946756544, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
-  - {fileID: -2122053501, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
-  idleDownSprites: []
-  idleUpSprites: []
-  idleRightSprites: []
-  idleLeftSprites: []
-  slideDownSprites:
-  - {fileID: 1425726162, guid: 96845224359186b4bbf360b935556cc7, type: 3}
-  - {fileID: 2143555899, guid: 96845224359186b4bbf360b935556cc7, type: 3}
-  - {fileID: 1369666327, guid: 96845224359186b4bbf360b935556cc7, type: 3}
-  - {fileID: 858890882, guid: 96845224359186b4bbf360b935556cc7, type: 3}
-  slideUpSprites:
-  - {fileID: 1369666327, guid: 96845224359186b4bbf360b935556cc7, type: 3}
-  - {fileID: 858890882, guid: 96845224359186b4bbf360b935556cc7, type: 3}
-  - {fileID: 1425726162, guid: 96845224359186b4bbf360b935556cc7, type: 3}
-  - {fileID: 2143555899, guid: 96845224359186b4bbf360b935556cc7, type: 3}
-  slideRightSprites:
-  - {fileID: 858890882, guid: 96845224359186b4bbf360b935556cc7, type: 3}
-  - {fileID: 1425726162, guid: 96845224359186b4bbf360b935556cc7, type: 3}
-  - {fileID: 2143555899, guid: 96845224359186b4bbf360b935556cc7, type: 3}
-  - {fileID: 1369666327, guid: 96845224359186b4bbf360b935556cc7, type: 3}
-  slideLeftSprites:
-  - {fileID: 2143555899, guid: 96845224359186b4bbf360b935556cc7, type: 3}
-  - {fileID: 1369666327, guid: 96845224359186b4bbf360b935556cc7, type: 3}
-  - {fileID: 858890882, guid: 96845224359186b4bbf360b935556cc7, type: 3}
-  - {fileID: 1425726162, guid: 96845224359186b4bbf360b935556cc7, type: 3}
+  customAnimationSprites: []
+  spriteSetStates:
+  - transitionSprites: []
+    transitionTo: 
+    walkDownSprites:
+    - sprite: {fileID: 98735547, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: -185111212, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: 454633085, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: -2082396081, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    walkUpSprites:
+    - sprite: {fileID: -1284078238, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: 1569599227, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: -434263762, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: -1631786368, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    walkRightSprites:
+    - sprite: {fileID: -1428109517, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: 1162315671, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: 400848, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: -757911419, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    walkLeftSprites:
+    - sprite: {fileID: -1939117026, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: -1668828445, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: 946756544, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: -2122053501, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    idleDownSprites: []
+    idleUpSprites: []
+    idleRightSprites: []
+    idleLeftSprites: []
+    slideDownSprites:
+    - sprite: {fileID: 98735547, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: -1428109517, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: -1284078238, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: -1939117026, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    slideUpSprites:
+    - sprite: {fileID: -1284078238, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: -1939117026, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: 98735547, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: -1428109517, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    slideRightSprites:
+    - sprite: {fileID: -1428109517, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: -1284078238, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: -1939117026, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: 98735547, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    slideLeftSprites:
+    - sprite: {fileID: -1939117026, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: 98735547, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: -1428109517, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
+    - sprite: {fileID: -1284078238, guid: 3fe2b11dd07b72b4992cc327686949cb, type: 3}
+      duration: 0.16
   directionalIdle: 1
+  spriteSetStateIndex: 0
   currentAnim: 
+  nextAnim: 
 --- !u!114 &2371525379772856775
 MonoBehaviour:
   m_ObjectHideFlags: 0

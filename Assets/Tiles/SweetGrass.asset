@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d27931462c6a91b48adeb2a6c2727f6c, type: 3}
+  m_Name: SweetGrass
+  m_EditorClassIdentifier: 
+  m_DefaultSprite: {fileID: 1145650585, guid: 4d9a14f9e1939e345aa69dafce6188ea, type: 3}
+  m_DefaultGameObject: {fileID: 0}
+  m_DefaultColliderType: 2
+  m_TilingRules: []
+  Siblings: []
+  tileType: 1
