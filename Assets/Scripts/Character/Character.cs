@@ -35,9 +35,10 @@ public class Character : MonoBehaviour
             audioSource.Pause();
 
     }
-    public IEnumerator Move(Vector2 moveVec, Action OnMoveOver = null)
+    public IEnumerator Move(Vector2 moveVec, Action OnMoveOver = null, Action OnAnimationFinished = null)
     {
-
+       
+        animator.OnAnimationFinished += OnAnimationFinished;
         if (animator == null)
             animator = GetComponent<CharacterAnimator>();
         animator.MoveX = moveVec.x;
@@ -189,7 +190,7 @@ public class Character : MonoBehaviour
         {
             OnMoveOver?.Invoke();
         }
-
+        
     }
 
     public void SetPostitionAndSnapToTile(Vector2 pos)
@@ -224,7 +225,24 @@ public class Character : MonoBehaviour
         return new bool[] { !(collisions != null && isNotSelf && !playerCollide), playerCollide && isNotSelf };
     }
 
+    public IEnumerator SpecialAnimate(string animationName, string nextAnim = "idleDownAnim", Action OnAnimationFinished = null)
+    {
+        return animator.SpecialAnimate(animationName, nextAnim, OnAnimationFinished);
+    }
 
+    public IEnumerator ChangeState(string nextAnim = "idleDownAnim", Action OnAnimationFinished = null)
+    {
+        return animator.ChangeState(nextAnim, OnAnimationFinished);
+    }
+    public IEnumerator ChangeState(int index, string nextAnim = "idleDownAnim", Action OnAnimationFinished = null)
+    {
+        return animator.ChangeState(index, nextAnim, OnAnimationFinished);
+    }
+
+    public IEnumerator Wait(float duration, Action OnAnimationFinished = null)
+    {
+        return animator.Wait(duration, OnAnimationFinished);
+    }
 
     private float AdjustInput(float input)
     {

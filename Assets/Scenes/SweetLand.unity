@@ -25527,7 +25527,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogs:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: cd4819b0580b09640a576309348de89f, type: 2}
   dialogFiles: []
   dialogIndex: 0
   paths: []
@@ -25614,23 +25614,39 @@ MonoBehaviour:
     walkLeftSprites: []
     idleDownSprites:
     - sprite: {fileID: -307402777, guid: 50f655ca10bd2b7478618c31ef4cbf61, type: 3}
-      duration: 2.5
+      duration: 0.6
     - sprite: {fileID: -566010037, guid: 50f655ca10bd2b7478618c31ef4cbf61, type: 3}
-      duration: 0.1
+      duration: 0.16
     - sprite: {fileID: 1700800575, guid: 50f655ca10bd2b7478618c31ef4cbf61, type: 3}
-      duration: 0.1
+      duration: 0.16
     - sprite: {fileID: -566010037, guid: 50f655ca10bd2b7478618c31ef4cbf61, type: 3}
-      duration: 0.1
+      duration: 0.16
     - sprite: {fileID: -307402777, guid: 50f655ca10bd2b7478618c31ef4cbf61, type: 3}
-      duration: 2.5
+      duration: 0.6
     - sprite: {fileID: -566010037, guid: 50f655ca10bd2b7478618c31ef4cbf61, type: 3}
-      duration: 0.1
+      duration: 0.16
     - sprite: {fileID: 1700800575, guid: 50f655ca10bd2b7478618c31ef4cbf61, type: 3}
-      duration: 0.1
+      duration: 0.16
     - sprite: {fileID: -566010037, guid: 50f655ca10bd2b7478618c31ef4cbf61, type: 3}
-      duration: 0.1
+      duration: 0.16
     - sprite: {fileID: -307402777, guid: 50f655ca10bd2b7478618c31ef4cbf61, type: 3}
-      duration: 0.1
+      duration: 0.16
+    - sprite: {fileID: 2014826470, guid: 50f655ca10bd2b7478618c31ef4cbf61, type: 3}
+      duration: 0.16
+    - sprite: {fileID: 286916105, guid: 50f655ca10bd2b7478618c31ef4cbf61, type: 3}
+      duration: 0.16
+    - sprite: {fileID: -1155984308, guid: 50f655ca10bd2b7478618c31ef4cbf61, type: 3}
+      duration: 0.16
+    - sprite: {fileID: -1984724302, guid: 50f655ca10bd2b7478618c31ef4cbf61, type: 3}
+      duration: 0.16
+    - sprite: {fileID: -1290155532, guid: 50f655ca10bd2b7478618c31ef4cbf61, type: 3}
+      duration: 0.16
+    - sprite: {fileID: -2001989556, guid: 50f655ca10bd2b7478618c31ef4cbf61, type: 3}
+      duration: 0.16
+    - sprite: {fileID: -2134337513, guid: 50f655ca10bd2b7478618c31ef4cbf61, type: 3}
+      duration: 0.16
+    - sprite: {fileID: 726777268, guid: 50f655ca10bd2b7478618c31ef4cbf61, type: 3}
+      duration: 0.16
     idleUpSprites: []
     idleRightSprites: []
     idleLeftSprites: []
@@ -25704,7 +25720,7 @@ GameObject:
   - component: {fileID: 6111022981459035598}
   m_Layer: 7
   m_Name: Doorian
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

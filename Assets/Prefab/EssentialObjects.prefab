@@ -6513,6 +6513,8 @@ MonoBehaviour:
   dialogContainer: {fileID: 1595770553096544289}
   dialogText: {fileID: 1595770553117112853}
   dialogReaction: {fileID: 1595770554074932078}
+  blockingAnims: 0
+  blockingDialog: 0
 --- !u!114 &1595770554815982714
 MonoBehaviour:
   m_ObjectHideFlags: 0

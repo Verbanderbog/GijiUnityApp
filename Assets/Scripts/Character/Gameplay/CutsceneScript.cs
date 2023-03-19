@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-[CreateAssetMenu(fileName = "DialogScriptableObject", menuName = "ScriptableObjects/Dialog")]
-public class Dialog : ScriptableObject
+[CreateAssetMenu(fileName = "CutsceneScriptScriptableObject", menuName = "ScriptableObjects/CutsceneScript")]
+public class CutsceneScript : ScriptableObject
 {
 
     [SerializeField] List<LineInfo> lines;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,13 +10,17 @@ public class SceneDetails : MonoBehaviour
     public bool IsLoaded { get; private set; }
 
     [SerializeField] List<SceneDetails> connectedScenes;
+    [SerializeField] Color bgColor;
+
     public List<SceneDetails> ConnectedScenes { get => connectedScenes; }
 
     new Collider2D collider;
+    Camera cam;
 
     private void Awake()
     {
         collider = GetComponent<Collider2D>();
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -48,7 +53,11 @@ public class SceneDetails : MonoBehaviour
 
     private void LoadScene(bool primaryScene = false)
     {
-        if (!IsLoaded)
+        if (primaryScene)
+        {
+            cam.backgroundColor = bgColor;
+        }
+            if (!IsLoaded)
         {
             var load = SceneManager.LoadSceneAsync(gameObject.name, LoadSceneMode.Additive);
             if (primaryScene)
@@ -60,6 +69,15 @@ public class SceneDetails : MonoBehaviour
                     {
                         controller.SetConfiners(this);
                     }
+                    Dictionary<string, Character> characters=new();
+                    var characterGameObjects= (from GameObject go in GameObject.FindGameObjectsWithTag("Character") where go.scene.name == gameObject.name select go).ToList();
+                    foreach (GameObject go in characterGameObjects)
+                    {
+                        var character=go.GetComponent<Character>();
+                        characters.Add(character.name, character);
+                        
+                    }
+                    GameController.i.characters = characters;
                 };
             }
             IsLoaded = true;
@@ -75,6 +93,15 @@ public class SceneDetails : MonoBehaviour
                 {
                     controller.SetConfiners(this);
                 }
+                Dictionary<string, Character> characters = new();
+                var characterGameObjects = (from GameObject go in GameObject.FindGameObjectsWithTag("Character") where go.scene.name == gameObject.name select go).ToList();
+                foreach (GameObject go in characterGameObjects)
+                {
+                    var character = go.GetComponent<Character>();
+                    characters.Add(character.name, character);
+
+                }
+                GameController.i.characters = characters;
             }
                 
         }

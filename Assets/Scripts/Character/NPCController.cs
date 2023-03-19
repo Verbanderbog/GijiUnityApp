@@ -7,14 +7,14 @@ using UnityEngine;
 
 public class NPCController : MonoBehaviour, Interactable, ISavable
 {
-    [SerializeField] List<Dialog> dialogs;
+    [SerializeField] List<CutsceneScript> dialogs;
     [SerializeField] List<TextAsset> dialogFiles;
     [SerializeField] int dialogIndex;
     [SerializeField] List<MovementPath> paths;
     [SerializeField] int currentPath;
     [SerializeField] NPCType type;
 
-    bool inDialog;
+    bool inCutscene;
     float idleTimer = 0f;
 
     PathAction currentPathAction;
@@ -27,12 +27,12 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
     {
         if (type == NPCType.Silent)
             return;
-        inDialog = true;
-        StartCoroutine(DialogManager.Instance.ShowDialog(dialogs[dialogIndex], OnDialogFinished));
+        inCutscene = true;
+        StartCoroutine(CutsceneManager.i.StartCutscene(dialogs[dialogIndex], OnCutsceneFinished));
     }
-    private void OnDialogFinished()
+    private void OnCutsceneFinished()
     {
-        inDialog = false;
+        inCutscene = false;
     }
     
     void Awake()
@@ -66,7 +66,7 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
             character.HandleUpdate();
             return;
         }
-        if (currentPath < 0 || (inDialog && paths[currentPath].blockedByDialog) || GameController.i.State==(GameState.Menu | GameState.SceneSwitch))
+        if (currentPath < 0 || (inCutscene && paths[currentPath].blockedByDialog) || GameController.i.State==(GameState.Menu | GameState.SceneSwitch))
             return;
         if (paths[currentPath].hasNext() && currentPathAction == null)
         {

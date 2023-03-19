@@ -39,7 +39,9 @@ public class SpriteAnimator
         timer += Time.deltaTime;
         if (timer > frames[currentFrame].duration)
         {
-            if (!looping && currentFrame+1 > frames.Count)
+            //if (!frames[currentFrame].sprite.name.Contains("Giji"))
+                //Debug.Log(frames[currentFrame].sprite.name);
+            if (!looping && currentFrame+2 > frames.Count)
             {
                 finished = true;
                 return;

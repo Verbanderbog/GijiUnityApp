@@ -16,7 +16,8 @@ public class GameController : MonoBehaviour
     public static GameController i { get; private set; }
 
     public HashSet<SceneDetails> loadedScenes;
-    
+    public Dictionary<string,Character> characters;
+
 
     List<GameState> previousStates;
     GameState state;
@@ -37,14 +38,14 @@ public class GameController : MonoBehaviour
         loadedScenes = new HashSet<SceneDetails>();
         gameMenuController = GetComponent<GameMenuController>();
         previousStates = new List<GameState>();
-        DialogManager.Instance.OnShowDialog += () =>
+        CutsceneManager.i.OnStartCutscene += () =>
         {
             ButtonContextController.i.ApplyContext("Next");
             ButtonContextController.i.ApplyContext("Skip");
             previousStates.Add(state);
             state = GameState.Dialog;
         };
-        DialogManager.Instance.OnCloseDialog += () =>
+        CutsceneManager.i.OnEndCutscene += () =>
         {
             if (state == GameState.Dialog)
                 RevertState();
@@ -99,7 +100,8 @@ public class GameController : MonoBehaviour
         }
         else if (state == GameState.Dialog)
         {
-            DialogManager.Instance.HandleUpdate();
+            playerController.Character.HandleUpdate();
+            CutsceneManager.i.HandleUpdate();
         }
         else if (state == GameState.Menu)
         {
