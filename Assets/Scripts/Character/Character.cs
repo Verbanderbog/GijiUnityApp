@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-
+    NPCController controller;
     CharacterAnimator animator;
     AudioSource audioSource;
     [SerializeField] FootstepSounds footsteps;
@@ -22,6 +22,7 @@ public class Character : MonoBehaviour
     {
         animator = GetComponent<CharacterAnimator>();
         audioSource = GetComponent<AudioSource>();
+        controller = GetComponent<NPCController>();
         SetPostitionAndSnapToTile(transform.position);
     }
     public void HandleUpdate()
@@ -34,6 +35,10 @@ public class Character : MonoBehaviour
         else if (!IsMoving && audioSource.isPlaying)
             audioSource.Pause();
 
+    }
+    public void SetDialogIndex(int index)
+    {
+        controller.dialogIndex = index;
     }
     public IEnumerator Move(Vector2 moveVec, Action OnMoveOver = null, Action OnAnimationFinished = null)
     {
@@ -244,7 +249,7 @@ public class Character : MonoBehaviour
         return animator.Wait(duration, OnAnimationFinished);
     }
 
-    private float AdjustInput(float input)
+    public static float AdjustInput(float input)
     {
         if (input > .35f)
         {

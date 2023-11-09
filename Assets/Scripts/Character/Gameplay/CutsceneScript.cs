@@ -12,8 +12,16 @@ public class CutsceneScript : ScriptableObject
     [SerializeField] List<CharacterDialogArt> participants;
     [SerializeField] TextAsset file;
     [SerializeField] CharacterDialogArtManager allParticipants;
+    [SerializeField] List<CutsceneScript> conditionalScripts;
+    [SerializeField] string conditionalOnFlag;
+    [SerializeField] List<CharacterDialogIndexPair> dialogIndexChanges;
+
     public List<LineInfo> Lines { get { return lines; } }
     public List<CharacterDialogArt> Participants { get { return participants; } }
+
+    public string ConditionalOnFlag { get => conditionalOnFlag; }
+    public List<CutsceneScript> ConditionalScripts { get => conditionalScripts; }
+    public List<CharacterDialogIndexPair> DialogIndexChanges { get => dialogIndexChanges; }
 
     private void OnValidate()
     {

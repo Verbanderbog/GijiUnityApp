@@ -31,7 +31,7 @@ public class CutsceneManager : MonoBehaviour
     int currentAnim = 0;
     bool isTyping = false;
     bool endTyping = false;
-    List<Character> charactersAnimating = new();
+    List<String> objectsAnimating = new();
     public static CutsceneManager i { get; private set; }
     private void Awake()
     {
@@ -50,35 +50,38 @@ public class CutsceneManager : MonoBehaviour
 
     public IEnumerator StartCutscene(CutsceneScript script, Action onCutsceneFinished=null)
     {
-        UpdateTextSpeed();
-        if (gamepad == null)
-            gamepad = Gamepad.current;
-        this.onCutsceneFinished = onCutsceneFinished;
-        yield return new WaitForEndOfFrame();
-        OnStartCutscene?.Invoke();
-        //IsShowing = true;
-        this.script = script;
-        if (!String.IsNullOrEmpty(script.Lines[0].Line))
-            dialogContainer.SetActive(true);
-        else
-            dialogContainer.SetActive(false);
-        dialogReaction.sprite = (script.Lines[0].Reaction != Reaction.Empty && script.Lines[0].ParticipantIndex >=0) ? script.Participants[script.Lines[0].ParticipantIndex].images[(int)script.Lines[0].Reaction] : null;
-        if (script.Lines[0].Reaction != Reaction.Empty && script.Lines[0].ParticipantIndex >= 0)
+        if (script != null)
         {
-            dialogReaction.enabled = true;
-            dialogReaction.sprite = script.Participants[script.Lines[0].ParticipantIndex].images[(int)script.Lines[0].Reaction];
-        }
-        else
-        {
-            dialogReaction.enabled = false;
-        }
-        if (!String.IsNullOrEmpty(script.Lines[currentLine].Line))
-        {
-            string type = script.Participants[script.Lines[0].ParticipantIndex].Name;
-            type = (type == null || type == "") ? script.Lines[0].Line : type + ": " + script.Lines[0].Line;
-            StartCoroutine(TypeDialog(type));
-        }
+            UpdateTextSpeed();
+            if (gamepad == null)
+                gamepad = Gamepad.current;
+            this.onCutsceneFinished = onCutsceneFinished;
+            yield return new WaitForEndOfFrame();
+            OnStartCutscene?.Invoke();
+            //IsShowing = true;
+            this.script = script;
 
+            if (String.IsNullOrEmpty(script.Lines[0].Line))
+                dialogContainer.SetActive(false);
+            else
+                dialogContainer.SetActive(true);
+            dialogReaction.sprite = (script.Lines[0].Reaction != Reaction.Empty && script.Lines[0].ParticipantIndex >= 0) ? script.Participants[script.Lines[0].ParticipantIndex].images[(int)script.Lines[0].Reaction] : null;
+            if (script.Lines[0].Reaction != Reaction.Empty && script.Lines[0].ParticipantIndex >= 0)
+            {
+                dialogReaction.enabled = true;
+                dialogReaction.sprite = script.Participants[script.Lines[0].ParticipantIndex].images[(int)script.Lines[0].Reaction];
+            }
+            else
+            {
+                dialogReaction.enabled = false;
+            }
+            if (!String.IsNullOrEmpty(script.Lines[currentLine].Line))
+            {
+                string type = (script.Lines[0].ParticipantIndex<0) ? "" :script.Participants[script.Lines[0].ParticipantIndex].Name;
+                type = (type == null || type == "" ) ? script.Lines[0].Line : type + ": " + script.Lines[0].Line;
+                StartCoroutine(TypeDialog(type));
+            }
+        }
     }
 
     public void UpdateTextSpeed()
@@ -143,40 +146,61 @@ public class CutsceneManager : MonoBehaviour
         {
             ++currentLine;
             currentAnim = 0;
-            if (currentLine < script.Lines.Count)
+            if (currentLine >= script.Lines.Count)
             {
-                if (!String.IsNullOrEmpty(script.Lines[currentLine].Line))
+                currentLine = 0;
+                if (script.DialogIndexChanges != null)
+                    foreach (CharacterDialogIndexPair pair in script.DialogIndexChanges)
+                    {
+                        GameController.i.characters[pair.character].SetDialogIndex(pair.dialogIndex);
+                    }
+                if (String.IsNullOrEmpty(script.ConditionalOnFlag) || script.ConditionalScripts == null || script.ConditionalScripts.Count <= 0)
                 {
-                    if (script.Lines[currentLine].Reaction == Reaction.Empty || script.Lines[currentLine].ParticipantIndex < 0)
-                    {
-                        dialogReaction.enabled = false;
-                    }
-                    else if (!script.Participants[script.Lines[currentLine].ParticipantIndex].images[(int)script.Lines[currentLine].Reaction].Equals(dialogReaction.sprite))
-                    {
-                        dialogReaction.enabled = true;
-                        dialogReaction.sprite = script.Participants[script.Lines[currentLine].ParticipantIndex].images[(int)script.Lines[currentLine].Reaction];
-                    }
-
-                    string type = (script.Lines[currentLine].ParticipantIndex < 0) ? null : script.Participants[script.Lines[currentLine].ParticipantIndex].Name;
-                    type = (type == null || type == "") ? script.Lines[currentLine].Line : type + ": " + script.Lines[currentLine].Line;
-                    dialogContainer.SetActive(true);
-                    StartCoroutine(TypeDialog(type));
-                }
+                    
+                    dialogContainer.SetActive(false);
+                    onCutsceneFinished?.Invoke();
+                    OnEndCutscene?.Invoke();
+                    return;
+                } 
                 else
                 {
-                    dialogContainer.SetActive(false);
+                    var flagVal = GameController.i.GetFlag(script.ConditionalOnFlag);
+                    if (flagVal < 0)
+                    {
+                        dialogContainer.SetActive(false);
+                        onCutsceneFinished?.Invoke();
+                        OnEndCutscene?.Invoke();
+                        return;
+                    }
+                    if (flagVal >= script.ConditionalScripts.Count)
+                    {
+                        flagVal = script.ConditionalScripts.Count - 1;
+                    }
+                    script = script.ConditionalScripts[flagVal];
                 }
                 
             }
+
+            if (!String.IsNullOrEmpty(script.Lines[currentLine].Line))
+            {
+                if (script.Lines[currentLine].Reaction == Reaction.Empty || script.Lines[currentLine].ParticipantIndex < 0)
+                {
+                    dialogReaction.enabled = false;
+                }
+                else if (!script.Participants[script.Lines[currentLine].ParticipantIndex].images[(int)script.Lines[currentLine].Reaction].Equals(dialogReaction.sprite))
+                {
+                    dialogReaction.enabled = true;
+                    dialogReaction.sprite = script.Participants[script.Lines[currentLine].ParticipantIndex].images[(int)script.Lines[currentLine].Reaction];
+                }
+
+                string type = (script.Lines[currentLine].ParticipantIndex < 0) ? null : script.Participants[script.Lines[currentLine].ParticipantIndex].Name;
+                type = (type == null || type == "") ? script.Lines[currentLine].Line : type + ": " + script.Lines[currentLine].Line;
+                dialogContainer.SetActive(true);
+                StartCoroutine(TypeDialog(type));
+            }
             else
             {
-                currentLine = 0;
-                currentAnim = 0;
-                //IsShowing = false;
                 dialogContainer.SetActive(false);
-                onCutsceneFinished?.Invoke();
-                OnEndCutscene?.Invoke();
-                return;
             }
         }
         HandleAnimations();
@@ -185,17 +209,36 @@ public class CutsceneManager : MonoBehaviour
     private void HandleAnimations()
     {
         
-        if (blockingAnims || script.Lines[currentLine].Anims.Count==0 )
+        if (blockingAnims || script.Lines[currentLine].Events.Count==0 )
             return;
         
-        for (int i=currentAnim; i<script.Lines[currentLine].Anims.Count; i++)
+        for (int i=currentAnim; i<script.Lines[currentLine].Events.Count; i++)
         {
-            if (GameController.i.characters.ContainsKey(script.Lines[currentLine].Anims[currentAnim].character) || (script.Lines[currentLine].Anims[currentAnim].character == "Player"))
+            if (script.Lines[currentLine].Events[currentAnim].cutsceneType == CutsceneEventType.FlagChange)
             {
-
-                Character character =(script.Lines[currentLine].Anims[currentAnim].character == "Player") ? GameController.i.playerController.Character : GameController.i.characters[script.Lines[currentLine].Anims[currentAnim].character];
+                if (script.Lines[currentLine].Events[currentAnim].incrementStateFlag)
+                {
+                    GameController.i.AddToFlag(script.Lines[currentLine].Events[currentAnim].flagKey, script.Lines[currentLine].Events[currentAnim].flagValue);
+                }
+                else
+                {
+                    GameController.i.SetFlag(script.Lines[currentLine].Events[currentAnim].flagKey, script.Lines[currentLine].Events[currentAnim].flagValue);
+                }
+                continue;
+            }
+            if (GameController.i.characters.ContainsKey(script.Lines[currentLine].Events[currentAnim].character) || (script.Lines[currentLine].Events[currentAnim].character == "Player"))
+            {
                 
-                if (character.Animator.IsBusy || charactersAnimating.Contains(character))
+                Character character = (script.Lines[currentLine].Events[currentAnim].character == "Player") ? GameController.i.playerController.Character : GameController.i.characters[script.Lines[currentLine].Events[currentAnim].character];
+                string objectName = "Camera";
+                bool isBusy = CinemachineController.i.Move; 
+                if (script.Lines[currentLine].Events[currentAnim].cutsceneType != CutsceneEventType.Camera)
+                {
+                    objectName = character.name;
+                    isBusy = character.Animator.IsBusy;
+                }
+
+                if (isBusy || objectsAnimating.Contains(objectName))
                 {
                     currentAnim = i;
                     break;
@@ -204,44 +247,49 @@ public class CutsceneManager : MonoBehaviour
                 void OnAnimationFinished()
                 {
                     Debug.Log("Anim finished");
-                    charactersAnimating.Remove(character);
+                    objectsAnimating.Remove(objectName);
                     blockingAnims = false;
                 }
-                switch (script.Lines[currentLine].Anims[currentAnim].cutsceneType)
+                switch (script.Lines[currentLine].Events[currentAnim].cutsceneType)
                 {
-                    case CutsceneAnimType.StateChange:
+                    case CutsceneEventType.StateChange:
                         Debug.Log(character.name + " changing state ");
-                        if (script.Lines[currentLine].Anims[currentAnim].incrementState)
-                            StartCoroutine(character.ChangeState((!String.IsNullOrEmpty(script.Lines[currentLine].Anims[currentAnim].nextAnimName)) ? script.Lines[currentLine].Anims[currentAnim].nextAnimName : "idleDownAnim", OnAnimationFinished));
+                        if (script.Lines[currentLine].Events[currentAnim].incrementStateFlag)
+                            StartCoroutine(character.ChangeState((!String.IsNullOrEmpty(script.Lines[currentLine].Events[currentAnim].nextAnimName)) ? script.Lines[currentLine].Events[currentAnim].nextAnimName : "idleDownAnim", OnAnimationFinished));
                         else
-                            StartCoroutine(character.ChangeState(script.Lines[currentLine].Anims[currentAnim].stateIndex, (!String.IsNullOrEmpty(script.Lines[currentLine].Anims[currentAnim].nextAnimName)) ? script.Lines[currentLine].Anims[currentAnim].nextAnimName : "idleDownAnim", OnAnimationFinished));
-                        charactersAnimating.Add(character);
+                            StartCoroutine(character.ChangeState(script.Lines[currentLine].Events[currentAnim].stateIndex, (!String.IsNullOrEmpty(script.Lines[currentLine].Events[currentAnim].nextAnimName)) ? script.Lines[currentLine].Events[currentAnim].nextAnimName : "idleDownAnim", OnAnimationFinished));
+                        objectsAnimating.Add(objectName);
                         break;
-                    case CutsceneAnimType.Movement:
-                        Debug.Log(character.name + " moving " + script.Lines[currentLine].Anims[currentAnim].move);
-                        StartCoroutine(character.Move(script.Lines[currentLine].Anims[currentAnim].move,null, OnAnimationFinished));
-                        charactersAnimating.Add(character);
+                    case CutsceneEventType.Movement:
+                        Debug.Log(character.name + " moving " + script.Lines[currentLine].Events[currentAnim].move);
+                        StartCoroutine(character.Move(script.Lines[currentLine].Events[currentAnim].move, null, OnAnimationFinished));
+                        objectsAnimating.Add(objectName);
                         break;
-                    case CutsceneAnimType.SpecialAnim:
-                        Debug.Log(character.name + " animating " + script.Lines[currentLine].Anims[currentAnim].animName);
-                        StartCoroutine(character.SpecialAnimate(script.Lines[currentLine].Anims[currentAnim].animName, (!String.IsNullOrEmpty(script.Lines[currentLine].Anims[currentAnim].nextAnimName)) ? script.Lines[currentLine].Anims[currentAnim].nextAnimName : "idleDownAnim", OnAnimationFinished));
-                        charactersAnimating.Add(character);
+                    case CutsceneEventType.SpecialAnim:
+                        Debug.Log(character.name + " animating " + script.Lines[currentLine].Events[currentAnim].animName);
+                        StartCoroutine(character.SpecialAnimate(script.Lines[currentLine].Events[currentAnim].animName, (!String.IsNullOrEmpty(script.Lines[currentLine].Events[currentAnim].nextAnimName)) ? script.Lines[currentLine].Events[currentAnim].nextAnimName : "idleDownAnim", OnAnimationFinished));
+                        objectsAnimating.Add(objectName);
                         break;
-                    case CutsceneAnimType.Wait:
-                        Debug.Log(character.name + " waiting " + script.Lines[currentLine].Anims[currentAnim].duration);
-                        StartCoroutine(character.Wait(script.Lines[currentLine].Anims[currentAnim].duration, OnAnimationFinished));
-                        charactersAnimating.Add(character);
+                    case CutsceneEventType.Wait:
+                        Debug.Log(character.name + " waiting " + script.Lines[currentLine].Events[currentAnim].duration);
+                        StartCoroutine(character.Wait(script.Lines[currentLine].Events[currentAnim].duration, OnAnimationFinished));
+                        objectsAnimating.Add(objectName);
+                        break;
+                    case CutsceneEventType.Camera:
+                        Debug.Log("Camera moving");
+                        CinemachineController.i.MoveCamera(character, script.Lines[currentLine].Events[currentAnim].move, script.Lines[currentLine].Events[currentAnim].zoom, script.Lines[currentLine].Events[currentAnim].rotate, script.Lines[currentLine].Events[currentAnim].duration, OnAnimationFinished);
+                        objectsAnimating.Add(objectName);
                         break;
                 }
-                blockingAnims = script.Lines[currentLine].Anims[currentAnim].blocksAnims || blockingAnims;
+                blockingAnims = script.Lines[currentLine].Events[currentAnim].blocksAnims || blockingAnims;
                 currentAnim = i;
 
             }
             else
             {
-                Debug.LogError("No such character: " + script.Lines[currentLine].Anims[currentAnim].character);
+                Debug.LogError("No such character: " + script.Lines[currentLine].Events[currentAnim].character);
             }
-            if (i + 1 >= script.Lines[currentLine].Anims.Count)
+            if (i + 1 >= script.Lines[currentLine].Events.Count)
                 currentAnim = i + 1;
         }
     }

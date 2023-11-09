@@ -8,30 +8,32 @@ public class LineInfo
     [SerializeField] string line;
     [SerializeField] int participantIndex = -1;
     [SerializeField] Reaction reaction;
-    [SerializeField] List<CutsceneAnimSet> animSets;
+    [SerializeField] List<CutsceneEventSet> eventSets;
     [SerializeField] bool hideButtons;
-    List<CutsceneAnim> anims = new();
+    List<CutsceneEvent> events;
 
     public string Line { get { return line; } }
     public int ParticipantIndex { get { return participantIndex; } }
     public Reaction Reaction { get { return reaction; } }
 
     public bool HideButtons { get => hideButtons;  }
-    public List<CutsceneAnim> Anims { 
+    public List<CutsceneEvent> Events { 
         get
-        { 
-            if (anims.Count == 0 && animSets.Count !=0)
+        {
+            if (events == null)
+                events = new();
+            if (events.Count == 0 && eventSets.Count !=0)
             {
-                if (animSets[0].anims.Count !=0)
+                if (eventSets[0].events.Count !=0)
                 {
-                    foreach (CutsceneAnimSet set in animSets)
+                    foreach (CutsceneEventSet set in eventSets)
                     {
-                        anims.AddRange(set.anims);
+                        events.AddRange(set.events);
                     }
                 }
             }
 
-            return anims;
+            return events;
         }  
     }
 

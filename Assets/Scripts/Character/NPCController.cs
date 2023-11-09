@@ -5,13 +5,13 @@ using System.IO;
 using UnityEngine;
 
 
-public class NPCController : MonoBehaviour, Interactable, ISavable
+public class NPCController : MonoBehaviour, Interactable
 {
     [SerializeField] List<CutsceneScript> dialogs;
     [SerializeField] List<TextAsset> dialogFiles;
-    [SerializeField] int dialogIndex;
+    public int dialogIndex { get { return GameController.i.GetFlag(name+"DialogIndex"); } set { GameController.i.SetFlag(name + "DialogIndex", value); } }
     [SerializeField] List<MovementPath> paths;
-    [SerializeField] int currentPath;
+    int currentPath { get { return GameController.i.GetFlag(name + "CurrentPath"); } set { GameController.i.SetFlag(name + "CurrentPath", value); } }
     [SerializeField] NPCType type;
 
     bool inCutscene;
@@ -21,7 +21,7 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
     bool actionStarted = false;
 
     Character character;
-    private enum NPCType { Talking, Inspectable, Silent}
+    private enum NPCType { Talking, Inspectable, Knockable, Silent}
 
     public void Interact(PlayerController player)
     {
@@ -76,6 +76,11 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
         {
             if (!actionStarted)
             {
+                
+                if (currentPathAction.useStartPos)
+                {
+                    character.SetPostitionAndSnapToTile(currentPathAction.startPos);
+                }
                 actionStarted = true;
                 StartCoroutine(character.Move(currentPathAction.GetVector()));
             }
@@ -96,6 +101,10 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
         {
             if (!actionStarted)
             {
+                if (currentPathAction.useStartPos)
+                {
+                    character.SetPostitionAndSnapToTile(currentPathAction.startPos);
+                }
                 actionStarted = true;
                 StartCoroutine(character.Move(currentPathAction.GetVector(), OnMoveOver));
             }
@@ -114,15 +123,6 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
         }
     }
 
-    public object CaptureState()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void RestoreState(object state)
-    {
-        throw new NotImplementedException();
-    }
 
     string Interactable.GetContextName()
     {
@@ -130,6 +130,7 @@ public class NPCController : MonoBehaviour, Interactable, ISavable
         {
             NPCType.Talking => "Talk",
             NPCType.Inspectable => "Inspect",
+            NPCType.Knockable => "Knock",
             _ => "",
         };
     }

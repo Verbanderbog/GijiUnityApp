@@ -35,6 +35,21 @@ public class CharacterAnimator : MonoBehaviour
 
     SpriteRenderer spriteRenderer;
     
+    public Vector3 GetFacing()
+    {
+        switch (currentAnim)
+        {
+            case string a when a.Contains("UpAnim"):
+                return new Vector3(0,1);
+            case string b when b.Contains("RightAnim"):
+                return new Vector3(1,0);
+            case string b when b.Contains("LeftAnim"):
+                return new Vector3(-1,0);
+            default:
+                return new Vector3(0,-1);
+        }
+    }
+
     public int GetWidth()
     {
         return animations[currentAnim].GetWidth();

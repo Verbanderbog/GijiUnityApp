@@ -6,13 +6,14 @@ using UnityEngine.SceneManagement;
 
 public enum GameState { FreeRoam, Dialog, Menu, SceneSwitch}
 
-public class GameController : MonoBehaviour
+public class GameController : MonoBehaviour, ISavable
 {
 
     public PlayerController playerController;
     GameMenuController gameMenuController;
     [SerializeField] FadeImage blackScreen;
-    
+    Dictionary<string, int> flags;
+    TimeSpan gametime;
     public static GameController i { get; private set; }
 
     public HashSet<SceneDetails> loadedScenes;
@@ -34,6 +35,10 @@ public class GameController : MonoBehaviour
         {
             DestroyImmediate(this);
         }
+        if (gametime == null)
+            gametime = new TimeSpan();
+        if (flags == null)
+            flags = new Dictionary<string, int>();
         state = GameState.FreeRoam;
         loadedScenes = new HashSet<SceneDetails>();
         gameMenuController = GetComponent<GameMenuController>();
@@ -53,6 +58,54 @@ public class GameController : MonoBehaviour
 
     }
 
+    public void SetFlag(string name, int value)
+    {
+        if (flags.ContainsKey(name))
+        {
+            flags[name] = value;
+        }
+        else
+        {
+            flags.Add(name, value);
+        }
+    }
+
+    public void SetFlag(string name, bool value)
+    {
+
+        if (value)
+        {
+            SetFlag(name, 1);
+        }
+        else
+        {
+            SetFlag(name, 0);
+        }
+    }
+
+    public void AddToFlag(string name, int delta)
+    {
+        if (flags.ContainsKey(name))
+        {
+            flags[name] += delta;
+        }
+        else
+        {
+            flags.Add(name, delta);
+        }
+    }
+
+    public int GetFlag(string name)
+    {
+        if (flags.ContainsKey(name))
+        {
+            return flags[name];
+        }
+        else
+        {
+            return 0;
+        }
+    }
 
     void RevertState()
     {
@@ -93,7 +146,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        gametime.Add(TimeSpan.FromSeconds((double) Time.deltaTime));
         if (state == GameState.FreeRoam)
         {
             playerController.HandleUpdate();
@@ -112,5 +165,17 @@ public class GameController : MonoBehaviour
             playerController.Character.HandleUpdate();
         }
         
+    }
+
+    public object CaptureState()
+    {
+        return new GameControllerSave(flags, gametime);
+    }
+
+    public void RestoreState(object state)
+    {
+        GameControllerSave save = (GameControllerSave)state;
+        flags = save.flags;
+        gametime = save.gametime;
     }
 }

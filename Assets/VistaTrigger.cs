@@ -11,6 +11,7 @@ public class VistaTrigger : MonoBehaviour, IPlayerTriggerable
     private CinemachineFramingTransposer body;
     [SerializeField] private Transform skybox;
     [SerializeField] private bool reset = false;
+    private bool resetting = false;
     void Start()
     {
         cam = GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>();
@@ -26,21 +27,34 @@ public class VistaTrigger : MonoBehaviour, IPlayerTriggerable
     {
         if (reset)
         {
-            
-            cam.Follow = player.transform;
-            body.m_TrackedObjectOffset = new Vector3(0, 0, 0);
-            body.m_YDamping = 0f;
-            
+
+
+            body.m_TrackedObjectOffset = Vector3.zero;
+            resetting = true;
+
+
         }
         else
         {
+            resetting = false;
             body.m_YDamping = 10;
-            body.m_TrackedObjectOffset = new Vector3(0, -0.5f, 0);
-            cam.Follow = skybox;
+            body.m_TrackedObjectOffset = new Vector3(0, 4f, 0);
         }
         
         
         yield return null;
+    }
+
+    private void Update()
+    {
+        if (resetting)
+        {
+            body.m_YDamping = (body.m_YDamping -(10 * Time.deltaTime) <= 0) ? 0 : body.m_YDamping - (10*Time.deltaTime);
+            if (body.m_YDamping == 0)
+            {
+                resetting = false;
+            }
+        }
     }
 
 #if UNITY_EDITOR

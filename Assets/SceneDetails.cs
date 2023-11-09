@@ -70,12 +70,19 @@ public class SceneDetails : MonoBehaviour
                         controller.SetConfiners(this);
                     }
                     Dictionary<string, Character> characters=new();
-                    var characterGameObjects= (from GameObject go in GameObject.FindGameObjectsWithTag("Character") where go.scene.name == gameObject.name select go).ToList();
-                    foreach (GameObject go in characterGameObjects)
+                    try
                     {
-                        var character=go.GetComponent<Character>();
-                        characters.Add(character.name, character);
-                        
+                        var characterGameObjects = (from GameObject go in GameObject.FindGameObjectsWithTag("Character") where go.scene.name == gameObject.name select go).ToList();
+                        foreach (GameObject go in characterGameObjects)
+                        {
+                            var character = go.GetComponent<Character>();
+                            characters.Add(character.name, character);
+
+                        }
+                    } 
+                    catch (UnityException)
+                    {
+
                     }
                     GameController.i.characters = characters;
                 };

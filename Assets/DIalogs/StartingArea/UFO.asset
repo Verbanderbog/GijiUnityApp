@@ -10,26 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dacef8192df043f48b0832921a2db0e0, type: 3}
-  m_Name: CutsceneScriptScriptableObject
+  m_Name: UFO
   m_EditorClassIdentifier: 
   lines:
-  - line: 
-    participantIndex: 0
-    reaction: -1
-    animSets:
-    - {fileID: 0}
+  - line: Well...That's not good.
+    participantIndex: -1
+    reaction: 0
+    eventSets: []
     hideButtons: 0
-  - line: This is a line of dialog.
-    participantIndex: 0
-    reaction: 1
-    animSets: []
+  - line: It's going to be a while before the ship's running again.
+    participantIndex: -1
+    reaction: 0
+    eventSets: []
     hideButtons: 0
-  - line: This is another line of dialog.
-    participantIndex: 0
-    reaction: 2
-    animSets: []
-    hideButtons: 0
-  participants:
-  - {fileID: 11400000, guid: 6f3e311e438128b4ebb4fcb0e0e26d43, type: 2}
+  participants: []
   file: {fileID: 0}
   allParticipants: {fileID: 0}
+  conditionalScripts: []
+  conditionalOnFlag: 
+  dialogIndexChanges: []

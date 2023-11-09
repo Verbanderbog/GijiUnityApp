@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour, ISavable
 
     IEnumerator movementRoutine;
 
-    public Dictionary<string, Dictionary<int, Collectible>> collectibles = new();
+    //public Dictionary<string, Dictionary<int, Collectible>> collectibles = new();
 
     private Character character;
 
@@ -73,11 +73,12 @@ public class PlayerController : MonoBehaviour, ISavable
                 break;
             }
         }
+
     }
 
     void CheckInteract()
     {
-        var facingDir = new Vector3(character.Animator.MoveX, character.Animator.MoveY);
+        var facingDir = character.Animator.GetFacing();
         var interactPos = transform.position - new Vector3(0, character.OffsetY) + facingDir;
         var collider = Physics2D.OverlapCircle(interactPos, 0.2f, GameLayers.i.InteractableLayer);
         if (collider != null)
@@ -93,12 +94,13 @@ public class PlayerController : MonoBehaviour, ISavable
 
     void Interact()
     {
-        Debug.Log("Interacting");
-        var facingDir = new Vector3(character.Animator.MoveX, character.Animator.MoveY);
+
+        var facingDir = character.Animator.GetFacing();
         var interactPos = transform.position - new Vector3(0, character.OffsetY) + facingDir;
         var collider = Physics2D.OverlapCircle(interactPos, 0.2f, GameLayers.i.InteractableLayer);
         if (collider != null)
         {
+            Debug.Log("Interacting");
             collider.GetComponent<Interactable>()?.Interact(this);
         }
     }

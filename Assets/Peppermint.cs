@@ -8,28 +8,21 @@ public class Peppermint : Collectible, IPlayerTriggerable
     public void OnPlayerTriggered(PlayerController player)
     {
         collected = true;
+        
     }
-    private void Start()
+    private void Awake()
     {
-        if (!GameController.i.playerController.collectibles.ContainsKey("Peppermint"))
-        {
-            var list = new Dictionary<int, Collectible>
-            {
-                { collectID, this }
-            };
-            GameController.i.playerController.collectibles.Add("Peppermint", list);
-        }
-        else
-        {
-            var peppermints = GameController.i.playerController.collectibles["Peppermint"];
-            if (peppermints.ContainsKey(collectID))
-            {
-                collected = peppermints[collectID].collected;
-                peppermints[collectID] = this;
-            }
-        }
+        collectibleTypeName = "Peppermint";
+        
     }
+    private void SetPostitionAndSnapToTile()
+    {
+        var pos = transform.position;
+        pos.x = Mathf.Floor(pos.x) + 0.5f;
+        pos.y = Mathf.Floor(pos.y) + 0.5f;
 
+        transform.position = pos;
+    }
     private void SetUniqueKey(Dictionary<int, Collectible> collectibles)
     {
         while (collectibles.ContainsKey(collectID))
@@ -38,8 +31,9 @@ public class Peppermint : Collectible, IPlayerTriggerable
         }
 
     }
+
 #if UNITY_EDITOR
-    
+
     private void OnValidate()
     {
         Dictionary<int, Collectible> verifyList = new();
@@ -52,7 +46,7 @@ public class Peppermint : Collectible, IPlayerTriggerable
         }
         SetUniqueKey(verifyList);
         verifyList.Add(collectID, this);
-
+        SetPostitionAndSnapToTile();
     }
 #endif
 }

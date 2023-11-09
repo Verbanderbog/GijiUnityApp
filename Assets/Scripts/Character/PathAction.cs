@@ -6,7 +6,8 @@ public class PathAction
     public NPCState state;
     public Direction direction;
     public float durationOrDistance;
-
+    public bool useStartPos;
+    public Vector2 startPos;
     public Vector2 GetVector()
     {
         var magnitude = 0.3f;
